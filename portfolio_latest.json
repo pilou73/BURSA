@@ -3517,126 +3517,6 @@
       "realized": null
     },
     {
-      "id": "price-eeln1bw",
-      "type": "PRICE",
-      "ticker": "282012",
-      "name": "אימקו",
-      "qty": 0,
-      "price": 10840,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-q64lmji",
-      "type": "PRICE",
-      "ticker": "1227552",
-      "name": "אקסון ויז'ן",
-      "qty": 0,
-      "price": 1389,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-uxx4t8n",
-      "type": "PRICE",
-      "ticker": "1166768",
-      "name": "דוראל אנרגיה",
-      "qty": 0,
-      "price": 3968,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-lekcjor",
-      "type": "PRICE",
-      "ticker": "1148899",
-      "name": "הראל סל ת\"א 125",
-      "qty": 0,
-      "price": 3859,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-7uuiqjd",
-      "type": "PRICE",
-      "ticker": "1082379",
-      "name": "טאואר",
-      "qty": 0,
-      "price": 40880,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-dqs472v",
-      "type": "PRICE",
-      "ticker": "629014",
-      "name": "טבע",
-      "qty": 0,
-      "price": 9877,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-aisepj6",
-      "type": "PRICE",
-      "ticker": "1166974",
-      "name": "משק אנרגיה",
-      "qty": 0,
-      "price": 1021,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-jd832vy",
-      "type": "PRICE",
-      "ticker": "1176593",
-      "name": "נקסט ויז'ן",
-      "qty": 0,
-      "price": 25670,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-qgj6n6f",
-      "type": "PRICE",
-      "ticker": "397018",
-      "name": "עין השלישית",
-      "qty": 0,
-      "price": 805,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-71g0h1h",
-      "type": "PRICE",
-      "ticker": "662577",
-      "name": "פועלים",
-      "qty": 0,
-      "price": 7748,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-rcr0p4a",
-      "type": "PRICE",
-      "ticker": "5137534",
-      "name": "ISHARES MSCI GLOBAL SILVER M",
-      "qty": 0,
-      "price": 13797.37,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
-      "id": "price-a9gvt2e",
-      "type": "PRICE",
-      "ticker": "5135470",
-      "name": "MTF מחקה אינדקס תעשיה ישראל",
-      "qty": 0,
-      "price": 219.3,
-      "date": "2026-01-21",
-      "fee": 0
-    },
-    {
       "id": "price-9a9z6fz",
       "type": "PRICE",
       "ticker": "5134135",
@@ -3647,24 +3527,204 @@
       "fee": 0
     },
     {
-      "id": "price-exrg4z6",
+      "id": "price-3qay0q2",
       "type": "PRICE",
-      "ticker": "1168723",
-      "name": "MTF סל אינדקס אנרגיה מתחדשת",
+      "ticker": "282012",
+      "name": "אימקו",
       "qty": 0,
-      "price": 1707,
+      "price": 10400,
       "date": "2026-01-21",
       "fee": 0
     },
     {
-      "id": "price-ddqya19",
+      "id": "price-nuk0kvi",
+      "type": "PRICE",
+      "ticker": "1227552",
+      "name": "אקסון ויז'ן",
+      "qty": 0,
+      "price": 1386,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-0i3k6yw",
       "type": "PRICE",
       "ticker": "587014",
       "name": "ארית תעשיות",
       "qty": 0,
-      "price": 6099,
+      "price": 6050,
       "date": "2026-01-21",
       "fee": 0
+    },
+    {
+      "id": "price-e4nron1",
+      "type": "PRICE",
+      "ticker": "1166768",
+      "name": "דוראל אנרגיה",
+      "qty": 0,
+      "price": 3870,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-veqwsfw",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 3860,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-sc0rvtc",
+      "type": "PRICE",
+      "ticker": "1082379",
+      "name": "טאואר",
+      "qty": 0,
+      "price": 42050,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-nq9sgnd",
+      "type": "PRICE",
+      "ticker": "629014",
+      "name": "טבע",
+      "qty": 0,
+      "price": 9999,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-ghui252",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 993,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-ir1bl84",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן",
+      "qty": 0,
+      "price": 25950,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-2eu4phl",
+      "type": "PRICE",
+      "ticker": "397018",
+      "name": "עין השלישית",
+      "qty": 0,
+      "price": 822,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-hri5yqk",
+      "type": "PRICE",
+      "ticker": "662577",
+      "name": "פועלים",
+      "qty": 0,
+      "price": 7725,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-dgrwnbg",
+      "type": "PRICE",
+      "ticker": "5137534",
+      "name": "ISHARES MSCI GLOBAL SILVER M",
+      "qty": 0,
+      "price": 13880,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-f3zfeyj",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה אינדקס תעשיה ישראל",
+      "qty": 0,
+      "price": 219.3,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "price-zg2p14z",
+      "type": "PRICE",
+      "ticker": "1168723",
+      "name": "MTF סל אינדקס אנרגיה מתחדשת",
+      "qty": 0,
+      "price": 1698,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "buy-cavm48j",
+      "type": "BUY",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 160,
+      "price": 390,
+      "date": "2025-12-19",
+      "fee": 0.53
+    },
+    {
+      "id": "buy-znne0jk",
+      "type": "BUY",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 100,
+      "price": 580,
+      "date": "2026-01-07",
+      "fee": 0.49
+    },
+    {
+      "id": "sell-7anojjc",
+      "type": "SELL",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 80,
+      "price": 607.1,
+      "date": "2026-01-14",
+      "fee": 38.18
+    },
+    {
+      "id": "sell-6tvvj50",
+      "type": "SELL",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 40,
+      "price": 699,
+      "date": "2026-01-14",
+      "fee": 31.05
+    },
+    {
+      "id": "price-1l7q1dy",
+      "type": "PRICE",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 0,
+      "price": 595.4,
+      "date": "2026-01-21",
+      "fee": 0
+    },
+    {
+      "id": "sell-dhzbumw",
+      "type": "SELL",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 140,
+      "price": 640,
+      "date": "2026-01-20",
+      "fee": 40.41
     }
   ]
 }
