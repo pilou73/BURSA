@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>מעקב אחזקות TASE</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form, table { width: 100%; max-width: 1200px; }
+    label { display: inline-block; margin: 6px 0; }
+    input, select, button { padding: 6px; margin: 4px; }
+    table { border-collapse: collapse; margin-top: 12px; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: center; }
+    .flex { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .section { border: 1px solid #ddd; padding: 12px; margin-top: 12px; border-radius: 6px; }
+    .actions button { margin: 0 4px; }
+    #chartWrap { max-width: 800px; }
+    tr.clickable:hover { background: #f4f8ff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>מעקב אחזקות TASE</h2>
+
+  <div class="section">
+    <h3>הוספת רכישה</h3>
+    <form id="buyForm">
+      <div class="flex">
+        <label>קוד TASE: <input required id="buyTicker" /></label>
+        <label>שם מניה: <input required id="buyName" /></label>
+        <label>תאריך רכישה: <input type="date" required id="buyDate" /></label>
+        <label>מחיר רכישה: <input type="number" step="0.0001" required id="buyPrice" /></label>
+        <label>כמות: <input type="number" step="0.0001" required id="buyQty" /></label>
+        <label>עמלה (ריק אם אין): <input type="number" step="0.0001" id="buyFee" /></label>
+      </div>
+      <button type="submit">הוסף רכישה</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <h3>עדכון שער יומי / מימוש חלקי</h3>
+    <form id="updateForm">
+      <div class="flex">
+        <label>קוד TASE: <input required id="updTicker" /></label>
+        <label>תאריך: <input type="date" required id="updDate" /></label>
+        <label>שער נוכחי: <input type="number" step="0.0001" required id="updPrice" /></label>
+        <label>מימוש (כמות למכירה, ריק אם אין): <input type="number" step="0.0001" id="updSellQty" /></label>
+        <label>עמלה (ריק אם אין): <input type="number" step="0.0001" id="updFee" /></label>
+      </div>
+      <button type="submit">עדכן</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <h3>אחזקה נוכחית</h3>
+    <table id="positionsTable">
+      <thead>
+        <tr>
+          <th>קוד</th><th>שם</th><th>כמות</th><th>מחיר קניה</th><th>שער עדכני</th><th>שווי</th><th>רווח/הפסד לא ממומש</th><th>פעולות</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>גרף שער אחרון (90 יום אחרונים)</h3>
+    <div id="chartWrap">
+      <canvas id="priceChart" height="240"></canvas>
+      <div id="chartInfo" style="margin-top:6px; color:#555;"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>יומן עסקאות (רכישות/מימושים/עדכוני שער)</h3>
+    <table id="txTable">
+      <thead>
+        <tr>
+          <th>תאריך</th><th>סוג</th><th>קוד</th><th>שם</th><th>כמות</th><th>מחיר</th><th>עמלה</th><th>רווח/הפסד ממומש</th><th>פעולות</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>גיבוי</h3>
+    <button id="exportBtn">ייצוא JSON</button>
+    <input type="file" id="importFile" accept=".json" />
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const LS_KEY = 'tasePortfolio_v4';
+let data = load();
+let selectedTicker = null;
+let chart = null;
+
+function load() {
+  const raw = localStorage.getItem(LS_KEY);
+  return raw ? JSON.parse(raw) : { tx: [] };
+}
+function save() { localStorage.setItem(LS_KEY, JSON.stringify(data)); render(); }
+function reseq() { data.tx = data.tx.map((t,i)=>({ ...t, seq:i })); }
+
+function uid() { return (crypto.randomUUID ? crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2)); }
+function todayISO() { return new Date().toISOString().slice(0,10); }
+function formatNum(n) { return n?.toLocaleString('he-IL', {maximumFractionDigits:4}) ?? ''; }
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const [y,m,d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// Recompute from tx log
+function recompute(txArr) {
+  const positions = {};
+  const lastPrice = {};
+  const txOut = [];
+  const sorted = txArr.slice().sort((a,b)=>{
+    if (a.date === b.date) return a.seq - b.seq;
+    return a.date < b.date ? -1 : 1;
+  });
+  for (const t of sorted) {
+    const ticker = t.ticker.trim();
+    if (!ticker) return { ok:false, err:'עסקה ללא קוד' };
+    if (!t.type) return { ok:false, err:'עסקה ללא סוג' };
+    if (!t.date) return { ok:false, err:'עסקה ללא תאריך' };
+    const price = Number(t.price) || 0;
+    const fee = Number(t.fee) || 0;
+    const qty = Number(t.qty) || 0;
+    const name = (t.name || '').trim();
+
+    if (t.type === 'BUY') {
+      if (qty <= 0 || price <= 0) return { ok:false, err:'BUY עם כמות/מחיר לא תקינים' };
+      const p = positions[ticker] || { name, qty:0, avg:0 };
+      const newQty = p.qty + qty;
+      const newAvg = (p.qty * p.avg + qty * price + fee) / newQty; // עמלה מגולמת במחיר
+      positions[ticker] = { name: p.name || name, qty: newQty, avg: newAvg };
+      lastPrice[ticker] = price;
+      txOut.push({ ...t, realized: null });
+    }
+    else if (t.type === 'SELL') {
+      if (qty <= 0 || price <= 0) return { ok:false, err:'SELL עם כמות/מחיר לא תקינים' };
+      const p = positions[ticker];
+      if (!p || p.qty < qty) return { ok:false, err:`מכירה גדולה מהאחזקה עבור ${ticker}` };
+      const proceeds = qty * price - fee;
+      const cost = qty * p.avg;
+      const realized = proceeds - cost;
+      const newQty = p.qty - qty;
+      positions[ticker] = { ...p, qty: newQty, avg: newQty === 0 ? 0 : p.avg };
+      if (newQty === 0) delete positions[ticker];
+      lastPrice[ticker] = price;
+      txOut.push({ ...t, realized });
+    }
+    else if (t.type === 'PRICE') {
+      if (price <= 0) return { ok:false, err:'PRICE עם מחיר לא תקין' };
+      lastPrice[ticker] = price;
+      txOut.push({ ...t, realized: null });
+    }
+    else {
+      return { ok:false, err:'סוג עסקה לא מוכר' };
+    }
+  }
+  return { ok:true, positions, lastPrice, txOut };
+}
+
+function render() {
+  const r = recompute(data.tx);
+  if (!r.ok) { alert('שגיאת נתונים: ' + r.err); return; }
+  const positions = r.positions;
+  const lastPrice = r.lastPrice;
+  const txComputed = r.txOut;
+
+  // Positions table
+  const posBody = document.querySelector('#positionsTable tbody');
+  posBody.innerHTML = '';
+  Object.entries(positions).forEach(([ticker,p])=>{
+    const price = lastPrice[ticker] ?? 0;
+    const value = p.qty * price;
+    const cost = p.qty * p.avg;
+    const pl = value - cost;
+    const tr = document.createElement('tr');
+    tr.classList.add('clickable');
+    tr.onclick = ()=>{ selectedTicker = ticker; renderChart(); };
+    tr.innerHTML = `
+      <td>${ticker}</td>
+      <td>${p.name || ''}</td>
+      <td>${formatNum(p.qty)}</td>
+      <td>${formatNum(p.avg)}</td>
+      <td>${formatNum(price)}</td>
+      <td>${formatNum(value)}</td>
+      <td style="color:${pl>=0?'green':'red'}">${formatNum(pl)}</td>
+      <td class="actions">
+        <button onclick="event.stopPropagation(); deletePosition('${ticker}')">מחיקה</button>
+      </td>
+    `;
+    posBody.appendChild(tr);
+  });
+
+  // Tx table
+  const txBody = document.querySelector('#txTable tbody');
+  txBody.innerHTML = '';
+  txComputed.slice().reverse().forEach(tx=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${formatDate(tx.date)}</td>
+      <td>${tx.type}</td>
+      <td>${tx.ticker}</td>
+      <td>${tx.name || ''}</td>
+      <td>${formatNum(tx.qty)}</td>
+      <td>${formatNum(tx.price)}</td>
+      <td>${formatNum(tx.fee||0)}</td>
+      <td>${tx.realized!=null ? formatNum(tx.realized) : ''}</td>
+      <td class="actions">
+        <button onclick="editTx('${tx.id}')">עריכה</button>
+        <button onclick="deleteTx('${tx.id}')">מחיקה</button>
+      </td>
+    `;
+    txBody.appendChild(tr);
+  });
+
+  // Persist computed realized values
+  data.tx = data.tx.map(t => {
+    const found = txComputed.find(x => x.id === t.id);
+    return found ? found : t;
+  });
+  localStorage.setItem(LS_KEY, JSON.stringify(data));
+
+  // Select default ticker for chart
+  if (!selectedTicker) {
+    const tickers = Object.keys(positions);
+    selectedTicker = tickers.length ? tickers[0] : null;
+  }
+  renderChart();
+}
+
+// Chart of last 90 days
+function renderChart() {
+  const info = document.getElementById('chartInfo');
+  if (!selectedTicker) {
+    if (chart) chart.destroy();
+    info.textContent = 'אין אחזקות להצגה.';
+    return;
+  }
+  const now = new Date();
+  const cutoff = new Date(now.getTime() - 90*24*3600*1000);
+
+  // Gather price points from tx (PRICE, BUY, SELL) for the ticker
+  const points = data.tx
+    .filter(t => t.ticker === selectedTicker && ['PRICE','BUY','SELL'].includes(t.type))
+    .map(t => ({ date: new Date(t.date), price: Number(t.price) }))
+    .filter(p => p.date.toString() !== 'Invalid Date' && p.price > 0)
+    .sort((a,b)=> a.date - b.date);
+
+  // Keep only last 90 days and dedup per day (keep last price of the day)
+  const byDay = new Map();
+  for (const p of points) {
+    if (p.date >= cutoff) {
+      const key = p.date.toISOString().slice(0,10);
+      byDay.set(key, p.price); // overwrite => last in day
+    }
+  }
+  const labels = Array.from(byDay.keys()).sort();
+  const dataVals = labels.map(d=>byDay.get(d));
+  if (chart) chart.destroy();
+  const ctx = document.getElementById('priceChart');
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels.map(d => {
+        const [y,m,day]=d.split('-'); return `${day}/${m}`;
+      }),
+      datasets: [{
+        label: `שער יומי (${selectedTicker})`,
+        data: dataVals,
+        borderColor: '#0074d9',
+        backgroundColor: 'rgba(0,116,217,0.1)',
+        tension: 0.15,
+        pointRadius: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { ticks: { autoSkip: true, maxTicksLimit: 10 } },
+        y: { beginAtZero: false }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+  info.textContent = labels.length
+    ? `מוצגים מחירי סגירה/עדכון אחרונים ל-90 יום אחרונים עבור ${selectedTicker}`
+    : `אין נתוני מחיר אחרונים עבור ${selectedTicker} ב-90 הימים האחרונים.`;
+}
+
+// Add buy
+document.getElementById('buyForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const ticker = buyTicker.value.trim();
+  const name   = buyName.value.trim();
+  const date   = buyDate.value;
+  const price  = parseFloat(buyPrice.value);
+  const qty    = parseFloat(buyQty.value);
+  const fee    = parseFloat(buyFee.value || '0');
+  if(!ticker || !date || isNaN(price) || isNaN(qty)) return;
+  const tx = { id: uid(), seq: data.tx.length, type:'BUY', ticker, name, date, qty, price, fee };
+  const test = recompute([...data.tx, tx]);
+  if (!test.ok) { alert(test.err); return; }
+  data.tx.push(tx);
+  save();
+  e.target.reset();
+  buyDate.value = todayISO();
+});
+
+// Update price and optionally sell
+document.getElementById('updateForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const ticker = updTicker.value.trim();
+  const date   = updDate.value;
+  const price  = parseFloat(updPrice.value);
+  const sellQ  = parseFloat(updSellQty.value || '0');
+  const fee    = parseFloat(updFee.value || '0');
+  if(!ticker || !date || isNaN(price)) return;
+
+  const txs = [];
+
+  // PRICE tx (replace same-day PRICE if exists)
+  const priceTx = { id: uid(), seq: data.tx.length + txs.length, type:'PRICE', ticker, name:'', date, qty:0, price, fee:0 };
+  const priceIdx = data.tx.findIndex(tx => tx.type==='PRICE' && tx.ticker===ticker && tx.date===date);
+  if (priceIdx >= 0) {
+    data.tx[priceIdx] = { ...priceTx, id: data.tx[priceIdx].id, seq: data.tx[priceIdx].seq };
+  } else {
+    txs.push(priceTx);
+  }
+
+  if(sellQ > 0) {
+    const sellTx = { id: uid(), seq: data.tx.length + txs.length, type:'SELL', ticker, name:'', date, qty:sellQ, price, fee };
+    txs.push(sellTx);
+  }
+
+  const test = recompute([...data.tx, ...txs]);
+  if (!test.ok) { alert(test.err); return; }
+  data.tx.push(...txs);
+  reseq();
+  save();
+  e.target.reset();
+  updDate.value = todayISO();
+});
+
+// Edit a transaction
+function editTx(id) {
+  const idx = data.tx.findIndex(t=>t.id===id);
+  if (idx === -1) return;
+  const t = {...data.tx[idx]};
+  const newType = prompt('סוג (BUY/SELL/PRICE):', t.type);
+  if (newType === null) return;
+  const type = newType.trim().toUpperCase();
+  if (!['BUY','SELL','PRICE'].includes(type)) return alert('סוג לא תקין');
+  const newTicker = prompt('קוד TASE:', t.ticker);
+  if (newTicker === null || !newTicker.trim()) return;
+  const newName = prompt('שם מניה (ריק אם אין שינוי):', t.name || '') ?? t.name;
+  const newDate = prompt('תאריך (YYYY-MM-DD):', t.date);
+  if (newDate === null || !newDate.trim()) return;
+  const newPrice = prompt('מחיר:', t.price);
+  if (newPrice === null || newPrice.trim()==='') return;
+  const newQty = type === 'PRICE' ? '0' : prompt('כמות:', t.qty);
+  if (newQty === null) return;
+  const newFee = prompt('עמלה (ריק=0):', t.fee || 0);
+
+  const updated = {
+    ...t,
+    type,
+    ticker: newTicker.trim(),
+    name: (newName ?? '').trim(),
+    date: newDate.trim(),
+    price: parseFloat(newPrice),
+    qty: parseFloat(newQty),
+    fee: parseFloat(newFee || '0')
+  };
+  const test = recompute([...data.tx.slice(0,idx), updated, ...data.tx.slice(idx+1)]);
+  if (!test.ok) { alert('לא נשמר: ' + test.err); return; }
+  data.tx[idx] = updated;
+  reseq();
+  save();
+}
+
+// Delete a transaction
+function deleteTx(id) {
+  if (!confirm('למחוק עסקה זו?')) return;
+  const idx = data.tx.findIndex(t=>t.id===id);
+  if (idx === -1) return;
+  const test = recompute([...data.tx.slice(0,idx), ...data.tx.slice(idx+1)]);
+  if (!test.ok) { alert('לא ניתן למחוק: ' + test.err); return; }
+  data.tx.splice(idx,1);
+  reseq();
+  save();
+}
+
+// Delete position (removes all tx of that ticker)
+function deletePosition(ticker) {
+  if (!confirm('למחוק את האחזקה ואת כל העסקאות של הנייר?')) return;
+  const remaining = data.tx.filter(t=>t.ticker !== ticker);
+  const test = recompute(remaining);
+  if (!test.ok) { alert('לא ניתן למחוק: ' + test.err); return; }
+  data.tx = remaining;
+  reseq();
+  if (selectedTicker === ticker) selectedTicker = null;
+  save();
+}
+
+// Export
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'portfolio_backup.json'; a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Import
+document.getElementById('importFile').addEventListener('change', evt=>{
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try {
+      const obj = JSON.parse(e.target.result);
+      if (!obj.tx) throw new Error('פורמט לא תקין');
+      obj.tx = obj.tx.map((t,i)=>({ ...t, seq: t.seq ?? i, id: t.id ?? uid() }));
+      const test = recompute(obj.tx);
+      if (!test.ok) throw new Error(test.err);
+      data = obj;
+      reseq();
+      save();
+    } catch(err){ alert('קובץ לא תקין: ' + err.message); }
+  };
+  reader.readAsText(file);
+});
+
+// Init: set default dates to today
+function initDates() {
+  const t = todayISO();
+  buyDate.value = t;
+  updDate.value = t;
+}
+
+initDates();
+render();
+</script>
+</body>
+</html>
