@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>ניהול תיק TASE - LocalStorage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 0; background:#f5f5f5; direction: rtl; }
+  header { background: #0b79d0; color: #fff; padding: 12px 16px; }
+  main { padding: 16px; }
+  .grid { display: grid; gap: 12px; }
+  .card { background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+  h3 { margin-top: 0; }
+  label { display: inline-block; margin: 6px 0 2px; font-weight: 600; }
+  input, select, button { padding: 6px 8px; margin: 2px 0; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  th, td { padding: 8px; border-bottom: 1px solid #e2e2e2; text-align: right; }
+  th { background: #f0f6ff; }
+  tr.clickable { cursor: pointer; }
+  .actions button { margin-left: 4px; }
+  .flex { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .totals-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); }
+  .total-box { background: #f7fbff; border: 1px solid #d7e9ff; border-radius: 8px; padding: 8px; }
+  .total-box .label { font-size: 0.9em; color: #444; }
+  .total-box .value { font-weight: 700; font-size: 1.05em; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header><h2>ניהול תיק TASE (LocalStorage)</h2></header>
+<main class="grid">
+
+  <!-- סיכומים מצטברים -->
+  <section id="totals" class="card">
+    <h3>סיכום מצטבר</h3>
+    <div class="totals-grid">
+      <div class="total-box">
+        <div class="label">סה"כ קניות</div>
+        <div id="sumBuys" class="value">-</div>
+      </div>
+      <div class="total-box">
+        <div class="label">סה"כ מכירות</div>
+        <div id="sumSells" class="value">-</div>
+      </div>
+      <div class="total-box">
+        <div class="label">סה"כ השקעה</div>
+        <div id="netInvest" class="value">-</div>
+      </div>
+      <div class="total-box">
+        <div class="label">שווי תיק עדכני</div>
+        <div id="currValue" class="value">-</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- הוספת קנייה -->
+  <section class="card">
+    <h3>הוספת קנייה</h3>
+    <div class="flex">
+      <div>
+        <label>סימול/קוד</label><br>
+        <input id="buyTicker" placeholder="ABC" />
+      </div>
+      <div>
+        <label>שם נייר</label><br>
+        <input id="buyName" placeholder="שם" />
+      </div>
+      <div>
+        <label>כמות</label><br>
+        <input id="buyQty" type="number" step="0.0001" />
+      </div>
+      <div>
+        <label>מחיר קנייה</label><br>
+        <input id="buyPrice" type="number" step="0.0001" />
+      </div>
+      <div>
+        <label>עמלה (אופציונלי)</label><br>
+        <input id="buyFee" type="number" step="0.0001" value="0" />
+      </div>
+      <div>
+        <label>תאריך</label><br>
+        <input id="buyDate" type="date" />
+      </div>
+    </div>
+    <button onclick="addBuy()">הוסף קנייה</button>
+  </section>
+
+  <!-- עדכון שער / מכירה -->
+  <section class="card">
+    <h3>עדכון שער יומי / מכירה חלקית</h3>
+    <div class="flex">
+      <div>
+        <label>סימול/קוד</label><br>
+        <input id="updTicker" placeholder="ABC" />
+      </div>
+      <div>
+        <label>שם נייר</label><br>
+        <input id="updName" placeholder="שם" />
+      </div>
+      <div>
+        <label>שער/מחיר</label><br>
+        <input id="updPrice" type="number" step="0.0001" />
+      </div>
+      <div>
+        <label>כמות למכור (ריק = רק עדכון שער)</label><br>
+        <input id="updQty" type="number" step="0.0001" />
+      </div>
+      <div>
+        <label>עמלה (אופציונלי)</label><br>
+        <input id="updFee" type="number" step="0.0001" value="0" />
+      </div>
+      <div>
+        <label>תאריך</label><br>
+        <input id="updDate" type="date" />
+      </div>
+    </div>
+    <button onclick="updatePriceOrSell()">עדכן שער / מכירה</button>
+  </section>
+
+  <!-- אחזקות נוכחיות -->
+  <section class="card">
+    <h3>אחזקות נוכחיות (לחיצה מציירת גרף 90 יום)</h3>
+    <table id="holdingsTable">
+      <thead>
+        <tr>
+          <th>סימול</th>
+          <th>שם</th>
+          <th>כמות</th>
+          <th>ממוצע קנייה</th>
+          <th>שער אחרון</th>
+          <th>שווי</th>
+          <th>P/L%</th>
+          <th>פעולות</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- יומן עסקאות -->
+  <section class="card">
+    <h3>יומן עסקאות</h3>
+    <table id="txTable">
+      <thead>
+        <tr>
+          <th>#</th><th>תאריך</th><th>סוג</th><th>סימול</th><th>שם</th><th>כמות</th><th>מחיר</th><th>עמלה</th><th>פעולות</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- גיבוי / שחזור -->
+  <section class="card">
+    <h3>גיבוי / שחזור</h3>
+    <div class="flex">
+      <button onclick="exportData()">ייצוא JSON</button>
+      <input type="file" id="importFile" accept="application/json" />
+      <button onclick="importData()">ייבוא JSON</button>
+      <button onclick="clearAll()">איפוס כל הנתונים</button>
+    </div>
+  </section>
+
+  <!-- גרף -->
+  <section class="card">
+    <h3>גרף שער אחרון (90 יום אחרונים)</h3>
+    <canvas id="priceChart" height="120"></canvas>
+    <div id="chartInfo" style="margin-top:6px;color:#555"></div>
+  </section>
+
+</main>
+
+<script>
+const LS_KEY = 'tasePortfolio_v5';
+let data = { tx: [] };
+let selectedTicker = null;
+let chart = null;
+
+function byId(id){ return document.getElementById(id); }
+function uid(){ return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function formatDate(d){ if(!d) return ''; return new Date(d).toLocaleDateString('he-IL',{timeZone:'Asia/Jerusalem'}); }
+function formatNumber(x,dec=2){ return (x ?? 0).toLocaleString('he-IL',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+function formatCurrency(x){ return formatNumber(x,2); }
+
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify(data)); }
+function load(){
+  const raw = localStorage.getItem(LS_KEY);
+  if(raw){ data = JSON.parse(raw); }
+  else { data = { tx: [] }; }
+}
+function initDates(){
+  byId('buyDate').value = todayStr();
+  byId('updDate').value = todayStr();
+}
+
+function addBuy(){
+  const ticker = byId('buyTicker').value.trim();
+  const name   = byId('buyName').value.trim();
+  const qty    = parseFloat(byId('buyQty').value);
+  const price  = parseFloat(byId('buyPrice').value);
+  const fee    = parseFloat(byId('buyFee').value||0) || 0;
+  const date   = byId('buyDate').value || todayStr();
+  if(!ticker || !name || !qty || !price){ alert('נא למלא סימול, שם, כמות ומחיר'); return; }
+  data.tx.push({ id: uid(), seq: data.tx.length+1, date, type:'BUY', ticker, name, qty, price, fee });
+  save(); renderAll(); clearBuyInputs();
+}
+function clearBuyInputs(){
+  byId('buyTicker').value=''; byId('buyName').value='';
+  byId('buyQty').value=''; byId('buyPrice').value='';
+  byId('buyFee').value='0'; byId('buyDate').value=todayStr();
+}
+
+function updatePriceOrSell(){
+  const ticker = byId('updTicker').value.trim();
+  const name   = byId('updName').value.trim();
+  const price  = parseFloat(byId('updPrice').value);
+  const qty    = parseFloat(byId('updQty').value);
+  const fee    = parseFloat(byId('updFee').value||0) || 0;
+  const date   = byId('updDate').value || todayStr();
+  if(!ticker || !name || !price){ alert('נא למלא סימול, שם, מחיר'); return; }
+
+  // אם יש כמות -> SELL; אחרת PRICE
+  if(qty && qty > 0){
+    // ולידציה: שלא ימכור יותר מקיים
+    const { portfolio } = recomputePortfolio();
+    const pos = portfolio[ticker];
+    if(!pos || pos.qty < qty){ alert('כמות למכירה גדולה מהאחזקה'); return; }
+    data.tx.push({ id: uid(), seq: data.tx.length+1, date, type:'SELL', ticker, name, qty, price, fee });
+  } else {
+    // PRICE: מחליף PRICE קיים של אותו יום לאותו נייר
+    const sameDay = data.tx.find(t => t.type==='PRICE' && t.ticker===ticker && t.date===date);
+    if(sameDay){
+      sameDay.price = price;
+      sameDay.name  = name || sameDay.name;
+    } else {
+      data.tx.push({ id: uid(), seq: data.tx.length+1, date, type:'PRICE', ticker, name, price });
+    }
+  }
+  save(); renderAll(); clearUpdInputs();
+}
+function clearUpdInputs(){
+  byId('updTicker').value=''; byId('updName').value='';
+  byId('updPrice').value=''; byId('updQty').value='';
+  byId('updFee').value='0'; byId('updDate').value=todayStr();
+}
+
+function recomputePortfolio(){
+  // בניית אחזקות ומחיר אחרון לפי יומן
+  const portfolio = {};
+  const lastPriceByTicker = {};
+  // סיכומים לתשואה ממומשת (לא מוצג כאן, אבל אפשר להרחיב)
+  data.tx
+    .slice()
+    .sort((a,b)=> new Date(a.date) - new Date(b.date) || a.seq - b.seq)
+    .forEach(t=>{
+      if(t.type === 'BUY'){
+        if(!portfolio[t.ticker]) portfolio[t.ticker] = { name: t.name, qty: 0, cost: 0, lastPrice: t.price };
+        const p = portfolio[t.ticker];
+        p.qty += t.qty;
+        p.cost += t.qty * t.price + (t.fee||0);
+        p.lastPrice = lastPriceByTicker[t.ticker] ?? p.lastPrice;
+      } else if(t.type === 'SELL'){
+        if(!portfolio[t.ticker]) portfolio[t.ticker] = { name: t.name, qty: 0, cost: 0, lastPrice: t.price };
+        const p = portfolio[t.ticker];
+        const avg = p.qty ? p.cost / p.qty : 0;
+        p.qty -= t.qty;
+        p.cost -= avg * t.qty; // מפחית עלות ממוצעת
+        p.lastPrice = lastPriceByTicker[t.ticker] ?? p.lastPrice;
+        if(p.qty <= 0){ p.qty = 0; p.cost = 0; }
+      } else if(t.type === 'PRICE'){
+        lastPriceByTicker[t.ticker] = t.price;
+        if(!portfolio[t.ticker]) portfolio[t.ticker] = { name: t.name, qty: 0, cost: 0, lastPrice: t.price };
+        portfolio[t.ticker].lastPrice = t.price;
+      }
+    });
+  // נקה רשומות עם כמות 0
+  Object.keys(portfolio).forEach(k=>{ if(portfolio[k].qty === 0) delete portfolio[k]; });
+  return { portfolio };
+}
+
+function renderHoldings(portfolio){
+  const tbody = byId('holdingsTable').querySelector('tbody');
+  tbody.innerHTML='';
+  const rows = Object.entries(portfolio).sort((a,b)=> a[1].name.localeCompare(b[1].name,'he'));
+  rows.forEach(([ticker,p])=>{
+    const avg = p.qty ? p.cost / p.qty : 0;
+    const mkt = p.qty * p.lastPrice;
+    const plPct = avg ? ((p.lastPrice - avg)/avg)*100 : 0;
+    const tr = document.createElement('tr');
+    tr.classList.add('clickable');
+    tr.onclick = ()=> { selectedTicker = ticker; renderChart(); };
+    tr.innerHTML = `
+      <td>${ticker}</td>
+      <td>${p.name||''}</td>
+      <td>${formatNumber(p.qty,4)}</td>
+      <td>${formatCurrency(avg)}</td>
+      <td>${formatCurrency(p.lastPrice)}</td>
+      <td>${formatCurrency(mkt)}</td>
+      <td>${formatNumber(plPct,2)}%</td>
+      <td class="actions">
+        <button onclick="event.stopPropagation(); deletePosition('${ticker}')">מחק נייר</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function deletePosition(ticker){
+  data.tx = data.tx.filter(t=> t.ticker !== ticker);
+  if(selectedTicker === ticker){ selectedTicker = null; renderChart(); }
+  reseq(); save(); renderAll();
+}
+
+function reseq(){
+  data.tx = data.tx
+    .slice()
+    .sort((a,b)=> new Date(a.date)-new Date(b.date) || a.seq - b.seq)
+    .map((t,i)=> ({...t, seq: i+1}));
+}
+
+function renderTx(){
+  const tbody = byId('txTable').querySelector('tbody');
+  tbody.innerHTML='';
+  data.tx
+    .slice()
+    .sort((a,b)=> new Date(a.date)-new Date(b.date) || a.seq - b.seq)
+    .forEach(t=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${t.seq}</td>
+        <td>${formatDate(t.date)}</td>
+        <td>${t.type}</td>
+        <td>${t.ticker}</td>
+        <td>${t.name||''}</td>
+        <td>${t.qty ? formatNumber(t.qty,4):''}</td>
+        <td>${t.price ? formatCurrency(t.price):''}</td>
+        <td>${t.fee ? formatCurrency(t.fee):''}</td>
+        <td class="actions">
+          <button onclick="startEditTx('${t.id}')">ערוך</button>
+          <button onclick="deleteTx('${t.id}')">מחק</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+}
+
+function startEditTx(id){
+  const t = data.tx.find(x=> x.id===id);
+  if(!t) return;
+  const newDate = prompt('תאריך (YYYY-MM-DD):', t.date) || t.date;
+  const newType = prompt('סוג (BUY/SELL/PRICE):', t.type) || t.type;
+  const newTicker = prompt('סימול:', t.ticker) || t.ticker;
+  const newName = prompt('שם:', t.name||'') || t.name;
+  const newQty = t.type==='PRICE' ? t.qty : parseFloat(prompt('כמות:', t.qty??'')) || t.qty;
+  const newPrice = parseFloat(prompt('מחיר:', t.price??'')) || t.price;
+  const newFee = parseFloat(prompt('עמלה:', t.fee??0)) || 0;
+
+  // עדכון
+  t.date = newDate;
+  t.type = newType.toUpperCase();
+  t.ticker = newTicker;
+  t.name = newName;
+  t.qty = (t.type==='PRICE') ? undefined : newQty;
+  t.price = newPrice;
+  t.fee = newFee;
+  reseq(); save(); renderAll();
+}
+
+function deleteTx(id){
+  data.tx = data.tx.filter(t=> t.id!==id);
+  reseq(); save(); renderAll();
+}
+
+function renderTotals(portfolio){
+  let sumBuys = 0, sumSells = 0;
+  data.tx.forEach(t=>{
+    if(t.type==='BUY'){
+      sumBuys += t.qty * t.price + (t.fee||0);
+    } else if(t.type==='SELL'){
+      sumSells += t.qty * t.price - (t.fee||0);
+    }
+  });
+  const currValue = Object.values(portfolio||{}).reduce((acc,p)=> acc + p.qty * p.lastPrice, 0);
+  const netInvest = sumBuys - sumSells;
+  byId('sumBuys').textContent = formatCurrency(sumBuys);
+  byId('sumSells').textContent = formatCurrency(sumSells);
+  byId('netInvest').textContent = formatCurrency(netInvest);
+  byId('currValue').textContent = formatCurrency(currValue);
+}
+
+function renderChart(){
+  const ctx = byId('priceChart').getContext('2d');
+  const info = byId('chartInfo');
+  if(!selectedTicker){
+    info.textContent = 'בחר נייר בטבלת האחזקות כדי לראות גרף.';
+    if(chart) chart.destroy();
+    return;
+  }
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-90);
+  const points = data.tx
+    .filter(t=> t.ticker===selectedTicker && t.type==='PRICE')
+    .filter(t=> new Date(t.date) >= cutoff)
+    .sort((a,b)=> new Date(a.date)-new Date(b.date));
+  // dedupe: keep last per day
+  const byDay = {};
+  points.forEach(p=>{ byDay[p.date] = p; });
+  const series = Object.values(byDay).sort((a,b)=> new Date(a.date)-new Date(b.date));
+  const labels = series.map(p=> formatDate(p.date));
+  const values = series.map(p=> p.price);
+  if(chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type:'line',
+    data:{ labels, datasets:[{ label:selectedTicker, data:values, borderColor:'#0b79d0', fill:false }]},
+    options:{ scales:{ y:{ beginAtZero:false }}, plugins:{ legend:{ display:true } } }
+  });
+  info.textContent = selectedTicker + ' | ' + (series.length ? 'מעודכן' : 'אין נתונים אחרונים');
+}
+
+function exportData(){
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'portfolio_export.json';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function importData(){
+  const f = byId('importFile').files[0];
+  if(!f){ alert('בחר קובץ JSON'); return; }
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const obj = JSON.parse(e.target.result);
+      if(!obj.tx){ alert('קובץ לא תקין: חסר tx'); return; }
+      data = obj;
+      reseq(); save(); renderAll();
+    } catch(err){ alert('שגיאת JSON'); }
+  };
+  reader.readAsText(f);
+}
+
+function clearAll(){
+  if(!confirm('לאפס את כל הנתונים?')) return;
+  localStorage.removeItem(LS_KEY);
+  data = { tx: [] };
+  selectedTicker = null;
+  if(chart) chart.destroy();
+  renderAll();
+}
+
+function renderAll(){
+  const { portfolio } = recomputePortfolio();
+  renderHoldings(portfolio);
+  renderTx();
+  renderTotals(portfolio);
+  if(selectedTicker) renderChart();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  load();
+  initDates();
+  renderAll();
+});
+</script>
+</body>
+</html>
