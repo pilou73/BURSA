@@ -5153,26 +5153,6 @@
       "fee": 0
     },
     {
-      "id": "price-z246e33",
-      "type": "PRICE",
-      "ticker": "5135470",
-      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
-      "qty": 0,
-      "price": 223.25,
-      "date": "2026-01-26",
-      "fee": 0
-    },
-    {
-      "id": "price-hl96s64",
-      "type": "PRICE",
-      "ticker": "MTF מחקה ()4D אינדקס al Metals",
-      "name": "MTF מחקה ()4D אינדקס al Metals",
-      "qty": 0,
-      "price": 189.51,
-      "date": "2026-01-26",
-      "fee": 0
-    },
-    {
       "id": "price-7whxem6",
       "type": "PRICE",
       "ticker": "MTF סל אנד אנר מתחד ישראל",
@@ -5183,12 +5163,32 @@
       "fee": 0
     },
     {
-      "id": "price-z7ea50m",
+      "id": "price-tww2gzo",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 225.24,
+      "date": "2026-01-26",
+      "fee": 0
+    },
+    {
+      "id": "price-g1jl83x",
+      "type": "PRICE",
+      "ticker": "MTF מחקה ()4D אינדקס al Metals",
+      "name": "MTF מחקה ()4D אינדקס al Metals",
+      "qty": 0,
+      "price": 189.51,
+      "date": "2026-01-26",
+      "fee": 0
+    },
+    {
+      "id": "price-zwzk4fy",
       "type": "PRICE",
       "ticker": "5137534",
       "name": "ISHARES MSCI GLOBAL SILVER M",
       "qty": 0,
-      "price": 15603.5,
+      "price": 14678,
       "date": "2026-01-26",
       "fee": 0
     }
