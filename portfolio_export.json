@@ -7171,6 +7171,26 @@
       "price": 1939,
       "date": "2026-02-12",
       "fee": 0
+    },
+    {
+      "id": "price-7fo2jq9",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 214.11,
+      "date": "2026-02-10",
+      "fee": 0
+    },
+    {
+      "id": "price-l388gb3",
+      "type": "PRICE",
+      "ticker": "MTF מחקה ()4D אינדקס al Metals",
+      "name": "MTF מחקה ()4D אינדקס al Metals",
+      "qty": 0,
+      "price": 193.72,
+      "date": "2026-02-10",
+      "fee": 0
     }
   ]
 }
