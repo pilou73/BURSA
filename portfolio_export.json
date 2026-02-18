@@ -7651,6 +7651,156 @@
       "price": 188.1,
       "date": "2026-02-17",
       "fee": 0
+    },
+    {
+      "id": "sell-y6u6wlv",
+      "type": "SELL",
+      "ticker": "1099787",
+      "name": "ג'ין טכנולוגיות",
+      "qty": 79,
+      "price": 541.3,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-v3orbr4",
+      "type": "PRICE",
+      "ticker": "1105907",
+      "name": "אייראנג'י טק",
+      "qty": 0,
+      "price": 1028,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-midgz21",
+      "type": "PRICE",
+      "ticker": "MTF מחקה ()4D אינדקס al Metals",
+      "name": "MTF מחקה ()4D אינדקס al Metals",
+      "qty": 0,
+      "price": 188.1,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "sell-cs5fl0m",
+      "type": "SELL",
+      "ticker": "1105907",
+      "name": "אייראנג'י טק",
+      "qty": 100,
+      "price": 990,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-6aj5kwl",
+      "type": "PRICE",
+      "ticker": "363010",
+      "name": "אירודרום קבוצה",
+      "qty": 0,
+      "price": 73.5,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-wp3oljd",
+      "type": "PRICE",
+      "ticker": "587014",
+      "name": "ארית תעשיות",
+      "qty": 0,
+      "price": 6013,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-lcp3d7e",
+      "type": "PRICE",
+      "ticker": "1166768",
+      "name": "דוראל אנרגיה",
+      "qty": 0,
+      "price": 6172,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-qv60hxt",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4111,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-k8akzjj",
+      "type": "PRICE",
+      "ticker": "1082379",
+      "name": "טאואר",
+      "qty": 0,
+      "price": 40800,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-b7va8ww",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1034,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-708glys",
+      "type": "PRICE",
+      "ticker": "1122654",
+      "name": "סטורג' דרופ",
+      "qty": 0,
+      "price": 74,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-5kb6usb",
+      "type": "PRICE",
+      "ticker": "662577",
+      "name": "פועלים",
+      "qty": 0,
+      "price": 8253,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-bkc3ncy",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 218.62,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-pg17wqh",
+      "type": "PRICE",
+      "ticker": "MTF סל אנד אנר מתחד ישראל",
+      "name": "MTF סל אנד אנר מתחד ישראל",
+      "qty": 0,
+      "price": 2030,
+      "date": "2026-02-18",
+      "fee": 0
+    },
+    {
+      "id": "price-5hk514g",
+      "type": "PRICE",
+      "ticker": "5137534",
+      "name": "ISHARES MSCI GLOBAL SILVER M",
+      "qty": 0,
+      "price": 12708,
+      "date": "2026-02-18",
+      "fee": 0
     }
   ]
 }
