@@ -8641,6 +8641,176 @@
       "price": 1880,
       "date": "2026-02-26",
       "fee": 0
+    },
+    {
+      "id": "buy-jch0lz3",
+      "type": "BUY",
+      "ticker": "RBLX",
+      "name": "ROBLOX CORP -CLASS A",
+      "qty": 3,
+      "price": 231.75,
+      "date": "2026-03-02",
+      "fee": 31.22
+    },
+    {
+      "id": "sell-pav6zsh",
+      "type": "SELL",
+      "ticker": "363010",
+      "name": "אירודרום קבוצה",
+      "qty": 600,
+      "price": 62,
+      "date": "2026-03-02",
+      "fee": -19.21
+    },
+    {
+      "id": "price-vulby80",
+      "type": "PRICE",
+      "ticker": "1105907",
+      "name": "אייראנג'י טק",
+      "qty": 0,
+      "price": 680.9,
+      "date": "2026-03-01",
+      "fee": 0
+    },
+    {
+      "id": "price-t3m2afj",
+      "type": "PRICE",
+      "ticker": "587014",
+      "name": "ארית תעשיות",
+      "qty": 0,
+      "price": 6334,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-f22hxvk",
+      "type": "PRICE",
+      "ticker": "485011",
+      "name": "בונוס ביוגרופ",
+      "qty": 0,
+      "price": 44.5,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-81r4o48",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 469.66,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-nmsv5ot",
+      "type": "PRICE",
+      "ticker": "1166768",
+      "name": "דוראל אנרגיה",
+      "qty": 0,
+      "price": 6356,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-tjbjiaw",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4184,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-ot2jqs1",
+      "type": "PRICE",
+      "ticker": "1082379",
+      "name": "טאואר",
+      "qty": 0,
+      "price": 41400,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-runjefu",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1219,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-znz4az0",
+      "type": "PRICE",
+      "ticker": "397018",
+      "name": "עין שלישית",
+      "qty": 0,
+      "price": 960,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-vcqiz3k",
+      "type": "PRICE",
+      "ticker": "662577",
+      "name": "פועלים",
+      "qty": 0,
+      "price": 8170,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-h9r05pa",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 233.74,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-7xzt4q2",
+      "type": "PRICE",
+      "ticker": "MTF מחקה ()4D אינדקס al Metals",
+      "name": "MTF מחקה ()4D אינדקס al Metals",
+      "qty": 0,
+      "price": 201.91,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-y0utnju",
+      "type": "PRICE",
+      "ticker": "MTF סל אנד אנר מתחד ישראל",
+      "name": "MTF סל אנד אנר מתחד ישראל",
+      "qty": 0,
+      "price": 1991,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-8g5w3m6",
+      "type": "PRICE",
+      "ticker": "5137534",
+      "name": "ISHARES MSCI GLOBAL SILVER M",
+      "qty": 0,
+      "price": 13063.37,
+      "date": "2026-03-03",
+      "fee": 0
+    },
+    {
+      "id": "price-4hu13hh",
+      "type": "PRICE",
+      "ticker": "RBLX",
+      "name": "ROBLOX CORP -CLASS A",
+      "qty": 0,
+      "price": 20447.66,
+      "date": "2026-03-03",
+      "fee": 0
     }
   ]
 }
