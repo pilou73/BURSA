@@ -50,9 +50,8 @@
     <div class="total-box"><span class="label">סה"כ מכירות</span><span id="sumSells" class="value">-</span></div>
     <div class="total-box"><span class="label">סה"כ השקעה נטו</span><span id="netInvest" class="value">-</span></div>
     <div class="total-box"><span class="label">שווי תיק עדכני</span><span id="currValue" class="value">-</span></div>
+    <div class="total-box"><span class="label">תשואה כוללת (%)</span><span id="plPercent" class="value">-</span></div>
   </div>
-    <div class="total-box"><span class="label">מימוש נטו ממכירות</span><span id="realizedNet" class="value">-</span></div>
-
 </div>
 
 <div class="section">
@@ -510,8 +509,20 @@ function renderTotals() {
   document.getElementById('sumSells').textContent = formatCurrencyNIS(sumSells);
   document.getElementById('netInvest').textContent = formatCurrencyNIS(netInvest);
   document.getElementById('currValue').textContent = formatCurrencyNIS(currValue);
-  const realizedNet = sumSells;
-  document.getElementById('realizedNet').textContent = formatCurrencyNIS(realizedNet);
+
+  let plPctText = '-';
+  let plClass = '';
+  if (netInvest > 0) {
+    const plPct = ((currValue - netInvest) / netInvest) * 100;
+    plPctText = plPct.toFixed(2) + '%';
+    if (plPct > 0) plClass = 'pos';
+    else if (plPct < 0) plClass = 'neg';
+  }
+  const plEl = document.getElementById('plPercent');
+  if (plEl) {
+    plEl.textContent = plPctText;
+    plEl.className = `value ${plClass}`;
+  }
 }
 
 // backup
