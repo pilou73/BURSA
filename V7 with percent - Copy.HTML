@@ -16,23 +16,69 @@
     --pos: #0f9d58;
     --neg: #d93025;
   }
-  body { margin:16px; font-family:"Segoe UI", Arial, sans-serif; font-size:13px; color:var(--text); background:var(--bg); }
-  h2, h3 { margin:0 0 10px 0; }
-  .header { background:linear-gradient(90deg, #1c5fb8, #1f7ad8); color:#fff; padding:12px 16px; border-radius:8px; box-shadow:0 6px 16px rgba(0,0,0,0.1); margin-bottom:14px; }
-  .section { background:var(--card); border:1px solid var(--border); padding:10px; margin-bottom:12px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
-  .flex { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-  label { color:var(--muted); font-weight:600; }
-  input, button, select { padding:5px; font-size:13px; border-radius:6px; border:1px solid var(--border); background:#fff; color:var(--text); }
-  button { background:var(--primary); color:#fff; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(25,118,210,0.25); }
-  button:hover { background:#125da6; }
-  table { border-collapse:collapse; width:100%; margin-bottom:12px; }
-  th, td { border:1px solid var(--border); padding:4px; text-align:right; }
-  th { background:var(--primary-light); color:var(--text); }
-  .clickable { cursor:pointer; }
-  .pos { color:var(--pos); font-weight:700; }
-  .neg { color:var(--neg); font-weight:700; }
-  .totals { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:10px; margin-bottom:12px; }
-  .total-box { background:#ffff; border:1px solid #e6f0fb; border-radius:8px; padding:10px; text-align:center; }
+  body {
+    margin: 16px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px; /* מוקטן ~10% נוספים */
+    color: var(--text);
+    background: var(--bg);
+  }
+  h2, h3 { margin: 0 0 10px 0; }
+  .header {
+    background: linear-gradient(90deg, #1c5fb8, #1f7ad8);
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    margin-bottom: 14px;
+  }
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .flex { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  label { color: var(--muted); font-weight: 600; }
+  input, button, select {
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+  }
+  button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(25,118,210,0.25);
+  }
+  button:hover { background: #125da6; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
+  th, td { border: 1px solid var(--border); padding: 4px; text-align: right; }
+  th { background: var(--primary-light); color: var(--text); }
+  .clickable { cursor: pointer; }
+  .pos { color: var(--pos); font-weight: 700; }
+  .neg { color: var(--neg); font-weight: 700; }
+
+  /* totals styles (from V5-inspired) */
+  .totals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .total-box {
+    background: #ffff;
+    border: 1px solid #e6f0fb;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
   .total-box .label { display:block; color:var(--muted); margin-bottom:6px; font-weight:600; }
   .total-box .value { font-size:1.05em; font-weight:700; color:var(--text); }
 </style>
@@ -43,13 +89,42 @@
   <h2>תיק השקעות TASE (LocalStorage)</h2>
 </div>
 
+<!-- totals summary (from V5) -->
 <div class="section">
   <h3>סיכום מצטבר</h3>
   <div class="totals" id="totalsSummary">
-    <div class="total-box"><span class="label">סה"כ קניות</span><span id="sumBuys" class="value">-</span></div>
-    <div class="total-box"><span class="label">סה"כ מכירות</span><span id="sumSells" class="value">-</span></div>
-    <div class="total-box"><span class="label">סה"כ השקעה נטו</span><span id="netInvest" class="value">-</span></div>
-    <div class="total-box"><span class="label">שווי תיק עדכני</span><span id="currValue" class="value">-</span></div>
+    <div class="total-box">
+      <span class="label">סה"כ קניות</span>
+      <span id="sumBuys" class="value">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">סה"כ מכירות</span>
+      <span id="sumSells" class="value">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">סה"כ השקעה נטו</span>
+      <span id="netInvest" class="value">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">שווי תיק עדכני</span>
+      <span id="currValue" class="value">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">תשואה נוכחית 📈</span>
+      <span id="currentReturn" class="value">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">מימושים ברווח 💚</span>
+      <span id="realizedProfit" class="value" style="color:var(--pos)">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">מימושים בהפסד 🔴</span>
+      <span id="realizedLoss" class="value" style="color:var(--neg)">-</span>
+    </div>
+    <div class="total-box">
+      <span class="label">רווח/הפסד ממומש נטו</span>
+      <span id="realizedNet" class="value">-</span>
+    </div>
   </div>
 </div>
 
@@ -82,7 +157,7 @@
 </div>
 
 <div class="section">
-  <h3>מכירה חלקי / SELL</h3>
+  <h3>מכירה חלקי   / SELL</h3>
   <div class="flex">
     <label>שם/קוד (אוטוקומפליט):
       <input id="sellSearch" list="positionsListSell" placeholder="הקלד שם או קוד" />
@@ -133,7 +208,6 @@
     <button onclick="exportJson()">ייצוא JSON</button>
     <input type="file" id="importFile" />
     <button onclick="importJson()">ייבוא JSON</button>
-    <button style="background:#d93025" onclick="clearAll()">מחק את כל הנתונים</button>
   </div>
 </div>
 
@@ -155,60 +229,11 @@ function formatCurrencyNIS(x){
   return Number(x).toLocaleString('he-IL', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' ₪';
 }
 
-// ---- Normalization + auto-swap ticker/name when flipped ----
-function looksLikeCode(str) {
-  return /^[A-Z0-9]{1,8}$/.test(str || '');
-}
-function looksLikeHebrewOrSpaced(str) {
-  return /[\u0590-\u05FF]/.test(str || '') || /\s/.test(str || '');
-}
-function normalizeData() {
-  if (!data.tx) data.tx = [];
-  data.tx = data.tx.map(tx => {
-    let type = (tx.type || '').toString().trim().toUpperCase();
-    let ticker = (tx.ticker || '').toString().trim();
-    let name = (tx.name || '').toString().trim();
-    const qty   = Number(tx.qty);
-    const price = Number(tx.price);
-    const fee   = Number(tx.fee);
-
-    // אם השם והטיקר זהים, שמור את הטיקר ורוקן שם (אין ניחוש)
-    if (name && ticker && name === ticker) {
-      if (looksLikeCode(ticker)) {
-        name = '';
-      }
-    }
-
-    // היגיון החלפה במקרה שהתהפכו
-    if (looksLikeHebrewOrSpaced(ticker) && looksLikeCode(name)) {
-      const tmp = ticker; ticker = name; name = tmp;
-    }
-    if (!ticker && looksLikeCode(name)) {
-      ticker = name; name = '';
-    }
-
-    // נירמול סוג
-    if (!['BUY','SELL','PRICE'].includes(type)) type = type.replace(/\s+/g,'');
-    if (!['BUY','SELL','PRICE'].includes(type)) type = 'PRICE';
-
-    return {
-      ...tx,
-      type,
-      ticker,
-      name,
-      qty: isFinite(qty) ? qty : 0,
-      price: isFinite(price) ? price : 0,
-      fee: isFinite(fee) ? fee : 0,
-      date: tx.date || ''
-    };
-  }).filter(tx => tx.ticker);
-}
 // load/save
 function load() {
   const raw = localStorage.getItem(LS_KEY);
   if (raw) data = JSON.parse(raw);
   if (!data.tx) data.tx = [];
-  normalizeData();
 }
 function save() { localStorage.setItem(LS_KEY, JSON.stringify(data)); }
 
@@ -217,7 +242,6 @@ function computePositions() {
   const pos = {};
   data.tx.forEach(tx => {
     const t = tx.ticker;
-    if (!t) return;
     if (!pos[t]) pos[t] = { ticker: t, name: tx.name || '', qty: 0, cost: 0, last: null };
     if (tx.type === 'BUY') {
       pos[t].qty += Number(tx.qty);
@@ -246,6 +270,8 @@ function renderPositions() {
     const tr = document.createElement('tr');
     tr.className = 'clickable';
     tr.onclick = () => { selectedTicker = p.ticker; renderChart(); };
+    const plAgora = (p.last != null && p.avg != null) ? (p.last - p.avg) * p.qty : 0;
+    // In this UI prices often stored in אגורות -> convert to ₪ for display where appropriate
     const valueNis = p.last != null ? (p.last * p.qty) / 100 : null;
     const plNis = (p.last != null && p.avg != null) ? ((p.last/100) - (p.avg/100)) * p.qty : 0;
     const plClass = plNis > 0 ? 'pos' : (plNis < 0 ? 'neg' : '');
@@ -278,6 +304,7 @@ function populatePositionDatalist(pos) {
     dl.appendChild(opt);
   });
 }
+// datalist for sell
 function populateSellDatalist(pos) {
   const dl = document.getElementById('positionsListSell');
   if (!dl) return;
@@ -325,7 +352,7 @@ function addBuy() {
   const fee = Number(document.getElementById('buyFee').value || 0);
   if (!ticker || !qty || !price) { alert('חסר קוד/כמות/מחיר'); return; }
   data.tx.push({ id: uid('buy'), type:'BUY', ticker, name, qty, price, date, fee });
-  normalizeData(); save(); renderAll();
+  save(); renderAll();
 }
 
 // add PRICE with replace same-day
@@ -337,7 +364,8 @@ function addPrice() {
   if (!ticker || !price) { alert('חסר קוד/מחיר'); return; }
   data.tx = data.tx.filter(tx => !(tx.type === 'PRICE' && tx.ticker === ticker && tx.date === date));
   data.tx.push({ id: uid('price'), type:'PRICE', ticker, name, qty:0, price, date, fee:0 });
-  normalizeData(); save(); renderAll();
+  save(); renderAll();
+  // reset fields
   document.getElementById('updPrice').value = '';
   document.getElementById('updSearch').value = '';
   document.getElementById('updTicker').value = '';
@@ -376,7 +404,7 @@ function addSell() {
   const p = pos.find(x => x.ticker === ticker);
   if (!p || p.qty < qty) { alert('אין כמות מספקת למכירה'); return; }
   data.tx.push({ id: uid('sell'), type:'SELL', ticker, name, qty, price, date, fee });
-  normalizeData(); save(); renderAll();
+  save(); renderAll();
 }
 
 // edit tx
@@ -389,7 +417,7 @@ function editTx(id) {
   const newPrice = prompt('מחיר:', tx.price) || tx.price;
   const newFee = prompt('עמלה:', tx.fee||0) || tx.fee;
   data.tx[i] = { ...tx, date:newDate, qty:Number(newQty), price:Number(newPrice), fee:Number(newFee) };
-  normalizeData(); save(); renderAll();
+  save(); renderAll();
 }
 
 // delete tx
@@ -403,18 +431,6 @@ function deletePosition(ticker) {
   data.tx = data.tx.filter(tx => tx.ticker !== ticker);
   if (selectedTicker === ticker) selectedTicker = null;
   save(); renderAll();
-}
-
-// CLEAR ALL DATA
-function clearAll() {
-  if (!confirm('למחוק את כל הנתונים?')) return;
-  if (!confirm('אישור סופי: כל העסקאות ימחקו.')) return;
-  localStorage.removeItem(LS_KEY);
-  data = { tx: [] };
-  selectedTicker = null;
-  if (chart) { chart.destroy(); chart = null; }
-  setDefaultDates();
-  renderAll();
 }
 
 // chart helpers
@@ -444,6 +460,7 @@ function chartSingle(ticker) {
   return { labels, values, label: ticker };
 }
 
+// aggregate chart: סה"כ תיק ב-₪, עם carry של מחירים
 function chartAggregate() {
   const end = new Date();
   const start = new Date(); start.setDate(end.getDate() - 90);
@@ -463,8 +480,8 @@ function chartAggregate() {
     days.push(new Date(d).toISOString().slice(0,10));
   }
 
-  const qtyMap = {};
-  const priceMap = {};
+  const qtyMap = {};   // ticker -> qty
+  const priceMap = {}; // ticker -> last price (agorot)
   const values = [];
 
   days.forEach(dayKey => {
@@ -479,7 +496,7 @@ function chartAggregate() {
     Object.keys(qtyMap).forEach(tk => {
       const q = qtyMap[tk];
       const p = priceMap[tk];
-      if (q > 0 && p != null) total += (q * p) / 100;
+      if (q > 0 && p != null) total += (q * p) / 100; // ₪
     });
     values.push(total);
   });
@@ -487,7 +504,34 @@ function chartAggregate() {
   return { labels: days, values, label: 'תיק כולל' };
 }
 
-// render totals
+// compute realized P&L per SELL, using weighted avg cost at time of sale
+function computeRealized() {
+  // replay transactions in order to track avg cost per ticker
+  const pos = {}; // ticker -> { qty, cost }
+  let totalProfit = 0, totalLoss = 0;
+  data.tx.forEach(tx => {
+    const t = tx.ticker;
+    if (!pos[t]) pos[t] = { qty: 0, cost: 0 };
+    if (tx.type === 'BUY') {
+      pos[t].qty += Number(tx.qty);
+      pos[t].cost += Number(tx.qty) * Number(tx.price) + Number(tx.fee || 0);
+    } else if (tx.type === 'SELL') {
+      const q = Number(tx.qty);
+      const avg = pos[t].qty > 0 ? pos[t].cost / pos[t].qty : 0;
+      const proceeds = (q * Number(tx.price)) / 100 - Number(tx.fee || 0);
+      const costBasis = (q * avg) / 100;
+      const pnl = proceeds - costBasis;
+      if (pnl >= 0) totalProfit += pnl;
+      else totalLoss += pnl;
+      // reduce cost basis
+      pos[t].qty -= q;
+      pos[t].cost -= q * avg;
+    }
+  });
+  return { totalProfit, totalLoss, net: totalProfit + totalLoss };
+}
+
+// render totals (new, מה-V5)
 function renderTotals() {
   let sumBuys = 0, sumSells = 0;
   data.tx.forEach(t => {
@@ -503,11 +547,35 @@ function renderTotals() {
     return acc;
   }, 0);
   const netInvest = sumBuys - sumSells;
+  const { totalProfit, totalLoss, net } = computeRealized();
 
   document.getElementById('sumBuys').textContent = formatCurrencyNIS(sumBuys);
   document.getElementById('sumSells').textContent = formatCurrencyNIS(sumSells);
   document.getElementById('netInvest').textContent = formatCurrencyNIS(netInvest);
   document.getElementById('currValue').textContent = formatCurrencyNIS(currValue);
+
+  // תשואה נוכחית = (שווי תיק - השקעה נטו) / השקעה נטו * 100
+  const retEl = document.getElementById('currentReturn');
+  if (netInvest > 0 && currValue > 0) {
+    const retPct = ((currValue - netInvest) / netInvest) * 100;
+    retEl.textContent = (retPct >= 0 ? '+' : '') + retPct.toFixed(2) + '%';
+    retEl.style.color = retPct >= 0 ? 'var(--pos)' : 'var(--neg)';
+  } else {
+    retEl.textContent = '-';
+    retEl.style.color = 'var(--text)';
+  }
+
+  const profitEl = document.getElementById('realizedProfit');
+  profitEl.textContent = totalProfit > 0 ? '+' + formatCurrencyNIS(totalProfit) : formatCurrencyNIS(totalProfit);
+  profitEl.style.color = 'var(--pos)';
+
+  const lossEl = document.getElementById('realizedLoss');
+  lossEl.textContent = formatCurrencyNIS(totalLoss);
+  lossEl.style.color = 'var(--neg)';
+
+  const netEl = document.getElementById('realizedNet');
+  netEl.textContent = (net >= 0 ? '+' : '') + formatCurrencyNIS(net);
+  netEl.style.color = net >= 0 ? 'var(--pos)' : 'var(--neg)';
 }
 
 // backup
@@ -526,7 +594,6 @@ function importJson() {
     try {
       data = JSON.parse(e.target.result);
       if (!data.tx) data.tx = [];
-      normalizeData();
       save(); renderAll();
     } catch(err) { alert('JSON לא תקין'); }
   };
@@ -538,14 +605,14 @@ function setDefaultDates() {
   const d = todayStr();
   ['buyDate','updDate','sellDate'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.value = d;
+    if (el && !el.value) el.value = d;
   });
 }
 
 function renderAll() {
   renderPositions();
   renderTx();
-  renderTotals();
+  renderTotals();    // <-- ensure totals updated
   renderChart();
 }
 

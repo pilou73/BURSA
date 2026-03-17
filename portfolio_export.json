@@ -1152,8 +1152,8 @@
       "ticker": "1082379",
       "name": "טאואר",
       "qty": 2,
-      "price": 37200,
-      "fee": 0.63
+      "price": 36800,
+      "fee": 0.62
     },
     {
       "id": "tx_61",
@@ -1163,8 +1163,8 @@
       "ticker": "1082379",
       "name": "טאואר",
       "qty": 2,
-      "price": 36800,
-      "fee": 0.62
+      "price": 37200,
+      "fee": 0.63
     },
     {
       "id": "tx_price_173",
@@ -7039,7 +7039,7 @@
       "name": "טאואר",
       "qty": 2,
       "price": 41390,
-      "date": "2026-02-12",
+      "date": "2026-02-13",
       "fee": 0.7
     },
     {
@@ -10000,6 +10000,166 @@
       "qty": 0,
       "price": 17755.33,
       "date": "2026-03-13",
+      "fee": 0
+    },
+    {
+      "id": "price-z574o4v",
+      "type": "PRICE",
+      "ticker": "363010",
+      "name": "אירודרום קבוצה",
+      "qty": 0,
+      "price": 260,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-bqxgr0a",
+      "type": "PRICE",
+      "ticker": "587014",
+      "name": "ארית תעשיות",
+      "qty": 0,
+      "price": 5316,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-niwubbk",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 421.27,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-l3mjezq",
+      "type": "PRICE",
+      "ticker": "5141841",
+      "name": "ברק אולטרה נפט WTI פי 3",
+      "qty": 0,
+      "price": 412.72,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-wyeolpy",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4028,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-635ipkz",
+      "type": "PRICE",
+      "ticker": "1082379",
+      "name": "טאואר",
+      "qty": 0,
+      "price": 43590,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-a0spzl9",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1234,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-k885ax0",
+      "type": "PRICE",
+      "ticker": "397018",
+      "name": "עין שלישית",
+      "qty": 0,
+      "price": 1170,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-cutfiuj",
+      "type": "PRICE",
+      "ticker": "662577",
+      "name": "פועלים",
+      "qty": 0,
+      "price": 7560,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-aztyhxg",
+      "type": "PRICE",
+      "ticker": "1145929",
+      "name": "קסם ETFי חוזה Bloomberg Brent Crude",
+      "qty": 0,
+      "price": 2856.59,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-mezzp5b",
+      "type": "PRICE",
+      "ticker": "5142088",
+      "name": "קסם KTF יי MarketVector תעשיות בטחוניות ישראליות",
+      "qty": 0,
+      "price": 108.13,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-yyutqhu",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 223.11,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-82memwf",
+      "type": "PRICE",
+      "ticker": "5134135",
+      "name": "MTF מחקה ()4D אינדקס al Metals",
+      "qty": 0,
+      "price": 176.14,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-3iwctmn",
+      "type": "PRICE",
+      "ticker": "1168723",
+      "name": "MTF סל אינדקס אנרגיה מתחדשת",
+      "qty": 0,
+      "price": 1989,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-dysd88n",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 3284.33,
+      "date": "2026-03-16",
+      "fee": 0
+    },
+    {
+      "id": "price-g18tzcr",
+      "type": "PRICE",
+      "ticker": "RBLX",
+      "name": "ROBLOX CORP -CLASS A",
+      "qty": 0,
+      "price": 18455,
+      "date": "2026-03-16",
       "fee": 0
     }
   ]

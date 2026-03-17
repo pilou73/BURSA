@@ -186,8 +186,9 @@
 </div>
 
 <div class="section">
-  <h3>גרף (90 יום אחרונים)</h3>
+  <h3 id="chartTitle">גרף (90 יום אחרונים)</h3>
   <canvas id="priceChart" height="120"></canvas>
+  <div id="holdingPeriods" style="margin-top:8px; font-size:12px; color:var(--muted);"></div>
 </div>
 
 <div class="section">
@@ -324,6 +325,15 @@ function renderTx() {
   tb.innerHTML = '';
   data.tx.forEach((tx,i) => {
     const tr = document.createElement('tr');
+    tr.className = 'clickable';
+    tr.title = 'לחץ לצפייה בגרף';
+    tr.onclick = (e) => {
+      // don't trigger if clicking edit/delete buttons
+      if (e.target.tagName === 'BUTTON') return;
+      selectedTicker = tx.ticker;
+      renderChart();
+      document.getElementById('priceChart').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
     tr.innerHTML = `
       <td>${i+1}</td>
       <td>${tx.type}</td>
@@ -437,38 +447,118 @@ function deletePosition(ticker) {
 function renderChart() {
   const ctx = document.getElementById('priceChart').getContext('2d');
   if (chart) chart.destroy();
-  const { labels, values, label } = selectedTicker ? chartSingle(selectedTicker) : chartAggregate();
+
+  if (!selectedTicker) {
+    document.getElementById('chartTitle').textContent = 'גרף תיק כולל (90 יום אחרונים)';
+    document.getElementById('holdingPeriods').textContent = '';
+    const { labels, values, label } = chartAggregate();
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets: [{ label, data: values, borderColor: '#1976d2', tension: 0.1, pointRadius: 0 }] },
+      options: { spanGaps: false, scales: { x: { ticks: { maxTicksLimit: 8 } } } }
+    });
+    return;
+  }
+
+  const { labels, values, label, periods, isCurrentlyHeld } = chartSingle(selectedTicker);
+
+  // title
+  const titleEl = document.getElementById('chartTitle');
+  titleEl.textContent = isCurrentlyHeld
+    ? `גרף ${label} (90 יום אחרונים)`
+    : `גרף ${label} (כל ההיסטוריה)`;
+
+  // holding periods display
+  const periodsEl = document.getElementById('holdingPeriods');
+  if (periods.length > 0) {
+    periodsEl.innerHTML = '<strong>תקופות אחזקה:</strong> ' +
+      periods.map(p => `${fmtDate(p.from)} – ${p.to ? fmtDate(p.to) : 'היום'}`).join(' &nbsp;|&nbsp; ');
+  } else {
+    periodsEl.textContent = '';
+  }
+
   chart = new Chart(ctx, {
     type: 'line',
-    data: { labels, datasets: [{ label, data: values, borderColor: '#1976d2', tension: 0.1, pointRadius: 0 }] },
-    options: { scales: { x: { ticks: { maxTicksLimit: 8 } } } }
+    data: { labels, datasets: [{ label, data: values, borderColor: '#1976d2', tension: 0.1, pointRadius: 2 }] },
+    options: { spanGaps: false, scales: { x: { ticks: { maxTicksLimit: 10 } } } }
   });
 }
 
 function chartSingle(ticker) {
+  // check if currently held
+  const currentPos = computePositions();
+  const isCurrentlyHeld = currentPos.some(p => p.ticker === ticker);
+
   const end = new Date();
-  const start = new Date(); start.setDate(end.getDate() - 90);
-  const points = data.tx
-    .filter(tx => tx.ticker === ticker && (tx.type === 'PRICE' || tx.type === 'BUY' || tx.type === 'SELL'))
-    .map(tx => ({ d: new Date(tx.date), p: tx.price }))
-    .filter(x => x.d >= start && x.d <= end)
-    .sort((a,b)=>a.d-b.d);
-  const byDay = {};
-  points.forEach(pt => { const k = pt.d.toISOString().slice(0,10); byDay[k] = pt.p; });
-  const labels = Object.keys(byDay).sort();
-  const values = labels.map(k => byDay[k]);
-  return { labels, values, label: ticker };
+  const start = new Date();
+  if (isCurrentlyHeld) {
+    start.setDate(end.getDate() - 90);
+  } else {
+    start.setFullYear(2000); // show all history for sold positions
+  }
+
+  // replay ALL transactions to know qty at each point
+  const allTx = [...data.tx]
+    .filter(tx => tx.ticker === ticker)
+    .sort((a,b) => a.date.localeCompare(b.date));
+
+  // build per-day data
+  const dayData = {}; // date -> { qty, price }
+  let runQty = 0;
+  allTx.forEach(tx => {
+    const k = tx.date;
+    if (!dayData[k]) dayData[k] = { qty: runQty, price: null };
+    if (tx.type === 'BUY') runQty += Number(tx.qty);
+    if (tx.type === 'SELL') runQty -= Number(tx.qty);
+    if (tx.type === 'PRICE') dayData[k].price = Number(tx.price);
+    dayData[k].qty = runQty;
+  });
+
+  // compute holding periods
+  const periods = [];
+  let periodStart = null;
+  let prevQty = 0;
+  Object.keys(dayData).sort().forEach(k => {
+    const { qty } = dayData[k];
+    if (prevQty === 0 && qty > 0) periodStart = k;
+    if (prevQty > 0 && qty === 0 && periodStart) {
+      periods.push({ from: periodStart, to: k });
+      periodStart = null;
+    }
+    prevQty = qty;
+  });
+  if (periodStart) periods.push({ from: periodStart, to: null }); // still held
+
+  // collect days within window that have a price
+  const labels = [];
+  const values = [];
+  Object.keys(dayData).sort().forEach(k => {
+    const d = new Date(k);
+    if (d < start || d > end) return;
+    const { qty, price } = dayData[k];
+    if (price == null) return;
+    labels.push(k);
+    values.push(qty > 0 ? price : null);
+  });
+
+  // get name for label
+  const nameTx = allTx.find(tx => tx.name);
+  const label = (nameTx ? nameTx.name + ' ' : '') + ticker;
+
+  return { labels, values, label, periods, isCurrentlyHeld };
 }
 
-// aggregate chart: סה"כ תיק ב-₪, עם carry של מחירים
+// aggregate chart: NAV אמיתי = שווי אחזקות + מזומן נטו (כולל מימושים ועמלות)
 function chartAggregate() {
   const end = new Date();
   const start = new Date(); start.setDate(end.getDate() - 90);
 
+  // מיון כל הטרנזקציות כרונולוגית
   const txSorted = [...data.tx]
     .map(tx => ({ ...tx, day: new Date(tx.date).toISOString().slice(0,10) }))
-    .sort((a,b)=> a.day.localeCompare(b.day));
+    .sort((a,b) => a.day.localeCompare(b.day));
 
+  // בניית dayMap לכל הטרנזקציות (כולל לפני חלון 90 יום)
   const dayMap = {};
   txSorted.forEach(tx => {
     if (!dayMap[tx.day]) dayMap[tx.day] = [];
@@ -480,28 +570,58 @@ function chartAggregate() {
     days.push(new Date(d).toISOString().slice(0,10));
   }
 
-  const qtyMap = {};   // ticker -> qty
-  const priceMap = {}; // ticker -> last price (agorot)
+  // חישוב מצטבר עד תחילת החלון (pre-load)
+  const qtyMap = {};
+  const priceMap = {};
+  let netCash = 0; // מזומן נטו מצטבר: +מכירות, -קניות, -עמלות
+
+  // עיבוד כל הטרנזקציות לפני תחילת החלון
+  const startStr = days[0];
+  txSorted.filter(tx => tx.day < startStr).forEach(tx => {
+    if (!qtyMap[tx.ticker]) qtyMap[tx.ticker] = 0;
+    if (tx.type === 'BUY') {
+      qtyMap[tx.ticker] += Number(tx.qty);
+      netCash -= (Number(tx.qty) * Number(tx.price)) / 100 + Number(tx.fee || 0);
+    }
+    if (tx.type === 'SELL') {
+      qtyMap[tx.ticker] -= Number(tx.qty);
+      netCash += (Number(tx.qty) * Number(tx.price)) / 100 - Number(tx.fee || 0);
+    }
+    if (tx.type === 'PRICE') priceMap[tx.ticker] = Number(tx.price);
+  });
+
   const values = [];
 
   days.forEach(dayKey => {
     const todays = dayMap[dayKey] || [];
     todays.forEach(tx => {
       if (!qtyMap[tx.ticker]) qtyMap[tx.ticker] = 0;
-      if (tx.type === 'BUY') qtyMap[tx.ticker] += Number(tx.qty);
-      if (tx.type === 'SELL') qtyMap[tx.ticker] -= Number(tx.qty);
+      if (tx.type === 'BUY') {
+        qtyMap[tx.ticker] += Number(tx.qty);
+        netCash -= (Number(tx.qty) * Number(tx.price)) / 100 + Number(tx.fee || 0);
+      }
+      if (tx.type === 'SELL') {
+        qtyMap[tx.ticker] -= Number(tx.qty);
+        netCash += (Number(tx.qty) * Number(tx.price)) / 100 - Number(tx.fee || 0);
+      }
       if (tx.type === 'PRICE') priceMap[tx.ticker] = Number(tx.price);
     });
-    let total = 0;
+
+    // NAV = שווי אחזקות פתוחות + מזומן נטו מצטבר
+    let marketValue = 0;
     Object.keys(qtyMap).forEach(tk => {
       const q = qtyMap[tk];
       const p = priceMap[tk];
-      if (q > 0 && p != null) total += (q * p) / 100; // ₪
+      if (q > 0 && p != null) marketValue += (q * p) / 100;
     });
-    values.push(total);
+
+    const nav = marketValue + netCash;
+    // אם אין נתונים כלל עדיין (לפני כל קנייה), דחוף null
+    const hasAnyData = Object.values(qtyMap).some(q => q > 0) || netCash !== 0;
+    values.push(hasAnyData ? nav : null);
   });
 
-  return { labels: days, values, label: 'תיק כולל' };
+  return { labels: days, values, label: 'NAV תיק כולל (כולל מימושים ועמלות)' };
 }
 
 // compute realized P&L per SELL, using weighted avg cost at time of sale
