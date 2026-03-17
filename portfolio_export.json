@@ -10193,26 +10193,6 @@
       "fee": 0
     },
     {
-      "id": "price-m1iszye",
-      "type": "PRICE",
-      "ticker": "5135173",
-      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
-      "qty": 0,
-      "price": 421.27,
-      "date": "2026-03-17",
-      "fee": 0
-    },
-    {
-      "id": "price-ge6peso",
-      "type": "PRICE",
-      "ticker": "5141841",
-      "name": "ברק אולטרה נפט WTI פי 3",
-      "qty": 0,
-      "price": 412.72,
-      "date": "2026-03-17",
-      "fee": 0
-    },
-    {
       "id": "price-eptzjx9",
       "type": "PRICE",
       "ticker": "1148899",
@@ -10248,7 +10228,7 @@
       "ticker": "397018",
       "name": "עין שלישית",
       "qty": 0,
-      "price": 1184,
+      "price": 1174,
       "date": "2026-03-17",
       "fee": 0
     },
@@ -10269,26 +10249,6 @@
       "name": "קסם ETFי חוזה Bloomberg Brent Crude",
       "qty": 0,
       "price": 2841.1,
-      "date": "2026-03-17",
-      "fee": 0
-    },
-    {
-      "id": "price-gqb6bjo",
-      "type": "PRICE",
-      "ticker": "5142088",
-      "name": "קסם KTF יי MarketVector תעשיות בטחוניות ישראליות",
-      "qty": 0,
-      "price": 108.13,
-      "date": "2026-03-17",
-      "fee": 0
-    },
-    {
-      "id": "price-x74r9hq",
-      "type": "PRICE",
-      "ticker": "5135470",
-      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
-      "qty": 0,
-      "price": 223.11,
       "date": "2026-03-17",
       "fee": 0
     },
@@ -10319,6 +10279,66 @@
       "name": "MTF מחקה ()4D אינדקס al Metals",
       "qty": 600,
       "price": 176.14,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-wji70bc",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 433.67,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-tz1xplu",
+      "type": "PRICE",
+      "ticker": "5141841",
+      "name": "ברק אולטרה נפט WTI פי 3",
+      "qty": 0,
+      "price": 383.14,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-382ac2q",
+      "type": "PRICE",
+      "ticker": "5142088",
+      "name": "קסם KTF יי MarketVector תעשיות בטחוניות ישראליות",
+      "qty": 0,
+      "price": 111.47,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-fmtfvmi",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 227.42,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-0n3dwbf",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 3508.066,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-92s4cm4",
+      "type": "PRICE",
+      "ticker": "RBLX",
+      "name": "ROBLOX CORP -CLASS A",
+      "qty": 0,
+      "price": 17972.66,
       "date": "2026-03-17",
       "fee": 0
     }
