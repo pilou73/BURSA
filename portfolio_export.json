@@ -10161,6 +10161,156 @@
       "price": 18455,
       "date": "2026-03-16",
       "fee": 0
+    },
+    {
+      "id": "sell-jj87920",
+      "type": "SELL",
+      "ticker": "363010",
+      "name": "אירודרום קבוצה",
+      "qty": 600,
+      "price": 265.3,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "sell-a1uyg2x",
+      "type": "SELL",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 58,
+      "price": 1234,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-s6ieycn",
+      "type": "PRICE",
+      "ticker": "587014",
+      "name": "ארית תעשיות",
+      "qty": 0,
+      "price": 5317,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-m1iszye",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 421.27,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-ge6peso",
+      "type": "PRICE",
+      "ticker": "5141841",
+      "name": "ברק אולטרה נפט WTI פי 3",
+      "qty": 0,
+      "price": 412.72,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-eptzjx9",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4067,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-5emnxn6",
+      "type": "PRICE",
+      "ticker": "1082379",
+      "name": "טאואר",
+      "qty": 0,
+      "price": 43250,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-pjxghau",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1254,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-a8hjdjj",
+      "type": "PRICE",
+      "ticker": "397018",
+      "name": "עין שלישית",
+      "qty": 0,
+      "price": 1119,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-2ur7i23",
+      "type": "PRICE",
+      "ticker": "662577",
+      "name": "פועלים",
+      "qty": 0,
+      "price": 7684,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-2u78gis",
+      "type": "PRICE",
+      "ticker": "1145929",
+      "name": "קסם ETFי חוזה Bloomberg Brent Crude",
+      "qty": 0,
+      "price": 2884,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-gqb6bjo",
+      "type": "PRICE",
+      "ticker": "5142088",
+      "name": "קסם KTF יי MarketVector תעשיות בטחוניות ישראליות",
+      "qty": 0,
+      "price": 108.13,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-x74r9hq",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
+      "qty": 0,
+      "price": 223.11,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-hkiusoa",
+      "type": "PRICE",
+      "ticker": "5134135",
+      "name": "MTF מחקה ()4D אינדקס al Metals",
+      "qty": 0,
+      "price": 176.14,
+      "date": "2026-03-17",
+      "fee": 0
+    },
+    {
+      "id": "price-zmj50uc",
+      "type": "PRICE",
+      "ticker": "1168723",
+      "name": "MTF סל אינדקס אנרגיה מתחדשת",
+      "qty": 0,
+      "price": 2000,
+      "date": "2026-03-17",
+      "fee": 0
     }
   ]
 }
