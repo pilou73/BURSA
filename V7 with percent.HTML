@@ -1,216 +1,359 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<title>TASE Portfolio</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-  :root {
-    --bg: #f7f9fc;
-    --card: #ffff;
-    --border: #dfe3eb;
-    --text: #1f2a44;
-    --muted: #5f6b85;
-    --primary: #1976d2;
-    --primary-light: #e8f1fc;
-    --pos: #0f9d58;
-    --neg: #d93025;
-  }
-  body {
-    margin: 16px;
-    font-family: "Segoe UI", Arial, sans-serif;
-    font-size: 13px; /* מוקטן ~10% נוספים */
-    color: var(--text);
-    background: var(--bg);
-  }
-  h2, h3 { margin: 0 0 10px 0; }
-  .header {
-    background: linear-gradient(90deg, #1c5fb8, #1f7ad8);
-    color: #fff;
-    padding: 12px 16px;
-    border-radius: 8px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    margin-bottom: 14px;
-  }
-  .section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 10px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-  }
-  .flex { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  label { color: var(--muted); font-weight: 600; }
-  input, button, select {
-    padding: 5px;
-    font-size: 13px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: #fff;
-    color: var(--text);
-  }
-  button {
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(25,118,210,0.25);
-  }
-  button:hover { background: #125da6; }
-  table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
-  th, td { border: 1px solid var(--border); padding: 4px; text-align: right; }
-  th { background: var(--primary-light); color: var(--text); }
-  .clickable { cursor: pointer; }
-  .pos { color: var(--pos); font-weight: 700; }
-  .neg { color: var(--neg); font-weight: 700; }
+  <meta charset="UTF-8" />
+  <!-- חשוב למובייל -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TASE Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffff;
+      --border: #dfe3eb;
+      --text: #1f2a44;
+      --muted: #5f6b85;
+      --primary: #1976d2;
+      --primary-light: #e8f1fc;
+      --pos: #0f9d58;
+      --neg: #d93025;
+    }
 
-  /* totals styles (from V5-inspired) */
-  .totals {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .total-box {
-    background: #ffff;
-    border: 1px solid #e6f0fb;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-  }
-  .total-box .label { display:block; color:var(--muted); margin-bottom:6px; font-weight:600; }
-  .total-box .value { font-size:1.05em; font-weight:700; color:var(--text); }
-</style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    h2, h3 { margin: 0 0 10px 0; }
+
+    .header {
+      background: linear-gradient(90deg, #1c5fb8, #1f7ad8);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      margin-bottom: 14px;
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .flex {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    label {
+      color: var(--muted);
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    input, button, select {
+      padding: 5px;
+      font-size: 13px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      box-sizing: border-box;
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(25,118,210,0.25);
+      white-space: nowrap;
+    }
+
+    button:hover { background: #125da6; }
+
+    /* טבלאות + מעטפת לגלילה במובייל */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 6px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 600px; /* שלא יימעך במסכים צרים */
+      margin-bottom: 12px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 4px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    th {
+      background: var(--primary-light);
+      color: var(--text);
+    }
+
+    .clickable { cursor: pointer; }
+    .pos { color: var(--pos); font-weight: 700; }
+    .neg { color: var(--neg); font-weight: 700; }
+
+    /* totals styles */
+    .totals {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .total-box {
+      background: #ffff;
+      border: 1px solid #e6f0fb;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+    .total-box .label {
+      display:block;
+      color:var(--muted);
+      margin-bottom:6px;
+      font-weight:600;
+    }
+    .total-box .value {
+      font-size:1.05em;
+      font-weight:700;
+      color:var(--text);
+    }
+
+    /* התאמות מובייל */
+    @media (max-width: 768px) {
+      .header {
+        margin: 0 0 10px 0;
+        border-radius: 0;
+      }
+
+      .container {
+        padding: 8px;
+      }
+
+      .flex {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      label {
+        width: 100%;
+      }
+
+      input, select, button {
+        width: 100%;
+        font-size: 15px; /* קצת יותר גדול לאצבע */
+        padding: 8px;
+      }
+
+      button {
+        margin-top: 4px;
+      }
+
+      table {
+        min-width: 500px;
+      }
+
+      #priceChart {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+<div class="container">
 
-<div class="header">
-  <h2>תיק השקעות TASE (LocalStorage)</h2>
-</div>
+  <div class="header">
+    <h2>תיק השקעות TASE (LocalStorage)</h2>
+  </div>
 
-<!-- totals summary (from V5) -->
-<div class="section">
-  <h3>סיכום מצטבר</h3>
-  <div class="totals" id="totalsSummary">
-    <div class="total-box">
-      <span class="label">סה"כ קניות</span>
-      <span id="sumBuys" class="value">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">סה"כ מכירות</span>
-      <span id="sumSells" class="value">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">סה"כ השקעה נטו</span>
-      <span id="netInvest" class="value">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">שווי תיק עדכני</span>
-      <span id="currValue" class="value">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">תשואה נוכחית 📈</span>
-      <span id="currentReturn" class="value">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">מימושים ברווח 💚</span>
-      <span id="realizedProfit" class="value" style="color:var(--pos)">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">מימושים בהפסד 🔴</span>
-      <span id="realizedLoss" class="value" style="color:var(--neg)">-</span>
-    </div>
-    <div class="total-box">
-      <span class="label">רווח/הפסד ממומש נטו</span>
-      <span id="realizedNet" class="value">-</span>
+  <!-- totals summary -->
+  <div class="section">
+    <h3>סיכום מצטבר</h3>
+    <div class="totals" id="totalsSummary">
+      <div class="total-box">
+        <span class="label">סה"כ קניות</span>
+        <span id="sumBuys" class="value">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">סה"כ מכירות</span>
+        <span id="sumSells" class="value">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">סה"כ השקעה נטו</span>
+        <span id="netInvest" class="value">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">שווי תיק עדכני</span>
+        <span id="currValue" class="value">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">תשואה נוכחית 📈</span>
+        <span id="currentReturn" class="value">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">מימושים ברווח 💚</span>
+        <span id="realizedProfit" class="value" style="color:var(--pos)">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">מימושים בהפסד 🔴</span>
+        <span id="realizedLoss" class="value" style="color:var(--neg)">-</span>
+      </div>
+      <div class="total-box">
+        <span class="label">רווח/הפסד ממומש נטו</span>
+        <span id="realizedNet" class="value">-</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="section">
-  <h3>קנייה (BUY)</h3>
-  <div class="flex">
-    <label>שם מניה: <input id="buyName" /></label>
-    <label>קוד TASE: <input id="buyTicker" /></label>
-    <label>כמות: <input id="buyQty" type="number" step="any" /></label>
-    <label>מחיר קנייה: <input id="buyPrice" type="number" step="any" /></label>
-    <label>תאריך: <input id="buyDate" type="date" /></label>
-    <label>עמלה: <input id="buyFee" type="number" step="any" value="0" /></label>
-    <button onclick="addBuy()">הוסף קנייה</button>
+  <div class="section">
+    <h3>קנייה (BUY)</h3>
+    <div class="flex">
+      <label>שם מניה:
+        <input id="buyName" />
+      </label>
+      <label>קוד TASE:
+        <input id="buyTicker" />
+      </label>
+      <label>כמות:
+        <input id="buyQty" type="number" step="any" />
+      </label>
+      <label>מחיר קנייה:
+        <input id="buyPrice" type="number" step="any" />
+      </label>
+      <label>תאריך:
+        <input id="buyDate" type="date" />
+      </label>
+      <label>עמלה:
+        <input id="buyFee" type="number" step="any" value="0" />
+      </label>
+      <button onclick="addBuy()">הוסף קנייה</button>
+    </div>
   </div>
-</div>
 
-<div class="section">
-  <h3>עדכון שער יומי (PRICE)</h3>
-  <div class="flex">
-    <label>שם/קוד (אוטוקומפליט):
-      <input id="updSearch" list="positionsList" placeholder="הקלד שם או קוד" />
-      <datalist id="positionsList"></datalist>
-    </label>
-    <label>קוד TASE: <input id="updTicker" /></label>
-    <label>שם (לא חובה): <input id="updName" /></label>
-    <label>שער: <input id="updPrice" type="number" step="any" /></label>
-    <label>תאריך: <input id="updDate" type="date" /></label>
-    <button onclick="addPrice()">עדכן שער</button>
+  <div class="section">
+    <h3>עדכון שער יומי (PRICE)</h3>
+    <div class="flex">
+      <label>שם/קוד (אוטוקומפליט):
+        <input id="updSearch" list="positionsList" placeholder="הקלד שם או קוד" />
+        <datalist id="positionsList"></datalist>
+      </label>
+      <label>קוד TASE:
+        <input id="updTicker" />
+      </label>
+      <label>שם (לא חובה):
+        <input id="updName" />
+      </label>
+      <label>שער:
+        <input id="updPrice" type="number" step="any" />
+      </label>
+      <label>תאריך:
+        <input id="updDate" type="date" />
+      </label>
+      <button onclick="addPrice()">עדכן שער</button>
+    </div>
   </div>
-</div>
 
-<div class="section">
-  <h3>מכירה חלקי   / SELL</h3>
-  <div class="flex">
-    <label>שם/קוד (אוטוקומפליט):
-      <input id="sellSearch" list="positionsListSell" placeholder="הקלד שם או קוד" />
-      <datalist id="positionsListSell"></datalist>
-    </label>
-    <label>קוד TASE: <input id="sellTicker" /></label>
-    <label>שם (לא חובה): <input id="sellName" /></label>
-    <label>כמות למכירה: <input id="sellQty" type="number" step="any" /></label>
-    <label>מחיר מכירה: <input id="sellPrice" type="number" step="any" /></label>
-    <label>תאריך: <input id="sellDate" type="date" /></label>
-    <label>עמלה: <input id="sellFee" type="number" step="any" value="0" /></label>
-    <button onclick="addSell()">הוסף מכירה</button>
+  <div class="section">
+    <h3>מכירה חלקי   / SELL</h3>
+    <div class="flex">
+      <label>שם/קוד (אוטוקומפליט):
+        <input id="sellSearch" list="positionsListSell" placeholder="הקלד שם או קוד" />
+        <datalist id="positionsListSell"></datalist>
+      </label>
+      <label>קוד TASE:
+        <input id="sellTicker" />
+      </label>
+      <label>שם (לא חובה):
+        <input id="sellName" />
+      </label>
+      <label>כמות למכירה:
+        <input id="sellQty" type="number" step="any" />
+      </label>
+      <label>מחיר מכירה:
+        <input id="sellPrice" type="number" step="any" />
+      </label>
+      <label>תאריך:
+        <input id="sellDate" type="date" />
+      </label>
+      <label>עמלה:
+        <input id="sellFee" type="number" step="any" value="0" />
+      </label>
+      <button onclick="addSell()">הוסף מכירה</button>
+    </div>
   </div>
-</div>
 
-<div class="section">
-  <h3>אחזקה נוכחית</h3>
-  <table id="posTable">
-    <thead>
-      <tr>
-        <th>שם</th><th>קוד</th><th>כמות</th><th>מחיר ממוצע</th><th>שער אחרון</th><th>שווי (₪)</th><th>רווח/הפסד (₪)</th><th>פעולות</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h3 id="chartTitle">גרף (90 יום אחרונים)</h3>
-  <canvas id="priceChart" height="120"></canvas>
-  <div id="holdingPeriods" style="margin-top:8px; font-size:12px; color:var(--muted);"></div>
-</div>
-
-<div class="section">
-  <h3>יומן עסקאות</h3>
-  <table id="txTable">
-    <thead>
-      <tr>
-        <th>#</th><th>סוג</th><th>שם</th><th>קוד</th><th>תאריך</th><th>כמות</th><th>מחיר</th><th>עמלה</th><th>פעולות</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h3>גיבוי</h3>
-  <div class="flex">
-    <button onclick="exportJson()">ייצוא JSON</button>
-    <input type="file" id="importFile" />
-    <button onclick="importJson()">ייבוא JSON</button>
+  <div class="section">
+    <h3>אחזקה נוכחית</h3>
+    <div class="table-wrapper">
+      <table id="posTable">
+        <thead>
+          <tr>
+            <th>שם</th><th>קוד</th><th>כמות</th><th>מחיר ממוצע</th><th>שער אחרון</th><th>שווי (₪)</th><th>רווח/הפסד (₪)</th><th>פעולות</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
-</div>
+
+  <div class="section">
+    <h3 id="chartTitle">גרף (90 יום אחרונים)</h3>
+    <canvas id="priceChart" height="120"></canvas>
+    <div id="holdingPeriods" style="margin-top:8px; font-size:12px; color:var(--muted);"></div>
+  </div>
+
+  <div class="section">
+    <h3>יומן עסקאות</h3>
+    <div class="table-wrapper">
+      <table id="txTable">
+        <thead>
+          <tr>
+            <th>#</th><th>סוג</th><th>שם</th><th>קוד</th><th>תאריך</th><th>כמות</th><th>מחיר</th><th>עמלה</th><th>פעולות</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>גיבוי</h3>
+    <div class="flex">
+      <button onclick="exportJson()">ייצוא JSON</button>
+      <input type="file" id="importFile" />
+      <button onclick="importJson()">ייבוא JSON</button>
+    </div>
+  </div>
+
+</div> <!-- /container -->
 
 <script>
 const LS_KEY = 'tasePortfolio_v7';
@@ -259,6 +402,7 @@ function computePositions() {
   return Object.values(pos)
     .filter(p => p.qty > 0)
     .map(p => ({ ...p, avg: p.qty ? (p.cost / p.qty) : 0 }))
+
     .sort((a,b) => (a.name||'').localeCompare(b.name||'', 'he'));
 }
 
@@ -651,7 +795,7 @@ function computeRealized() {
   return { totalProfit, totalLoss, net: totalProfit + totalLoss };
 }
 
-// render totals (new, מה-V5)
+// render totals
 function renderTotals() {
   let sumBuys = 0, sumSells = 0;
   data.tx.forEach(t => {
@@ -732,7 +876,7 @@ function setDefaultDates() {
 function renderAll() {
   renderPositions();
   renderTx();
-  renderTotals();    // <-- ensure totals updated
+  renderTotals();
   renderChart();
 }
 
