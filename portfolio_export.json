@@ -11153,7 +11153,87 @@
       "fee": 0
     },
     {
-      "id": "price-9qqo0pf",
+      "id": "price-3494tzt",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 3210.54,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "sell-fxfcloo",
+      "type": "SELL",
+      "ticker": "363010",
+      "name": "אירודרום קבוצה",
+      "qty": 300,
+      "price": 225,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "buy-uegcw94",
+      "type": "BUY",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 30,
+      "price": 4112,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "buy-xlsffhh",
+      "type": "BUY",
+      "ticker": "1173871",
+      "name": "תיגי",
+      "qty": 20,
+      "price": 785.1,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "buy-tsayghz",
+      "type": "BUY",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 20,
+      "price": 1446,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-kh50xrb",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1397,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-un9z8uf",
+      "type": "PRICE",
+      "ticker": "1215771",
+      "name": "אי.בי.אי. סל ת\"א-ביטוח",
+      "qty": 0,
+      "price": 14740,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-g8opmqc",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 283000,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-olza2a1",
       "type": "PRICE",
       "ticker": "5135173",
       "name": "ברק (60) אולטרה ת\"א 35 פי 3",
@@ -11163,7 +11243,7 @@
       "fee": 0
     },
     {
-      "id": "price-klob3tf",
+      "id": "price-ppdcm8v",
       "type": "PRICE",
       "ticker": "5141841",
       "name": "ברק אולטרה נפט WTI פי 3",
@@ -11173,7 +11253,87 @@
       "fee": 0
     },
     {
-      "id": "price-dt7ajft",
+      "id": "price-ukrooo8",
+      "type": "PRICE",
+      "ticker": "1166768",
+      "name": "דוראל אנרגיה",
+      "qty": 0,
+      "price": 5893,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-0epj85m",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4095,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-dx22yxf",
+      "type": "PRICE",
+      "ticker": "1082379",
+      "name": "טאואר",
+      "qty": 0,
+      "price": 57530,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-z1bozz6",
+      "type": "PRICE",
+      "ticker": "1180686",
+      "name": "טונדו סמארט",
+      "qty": 0,
+      "price": 1103,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-tzw8rhf",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1059,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-u040yvj",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 33380,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-kpgayi4",
+      "type": "PRICE",
+      "ticker": "397018",
+      "name": "עין שלישית",
+      "qty": 0,
+      "price": 1070,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-gmz0ter",
+      "type": "PRICE",
+      "ticker": "1145929",
+      "name": "קסם ETFי חוזה Bloomberg Brent Crude",
+      "qty": 0,
+      "price": 2933,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-fpepl3j",
       "type": "PRICE",
       "ticker": "5142088",
       "name": "קסם KTF יי MarketVector תעשיות בטחוניות ישראליות",
@@ -11183,7 +11343,17 @@
       "fee": 0
     },
     {
-      "id": "price-q5wf684",
+      "id": "price-9m2q19d",
+      "type": "PRICE",
+      "ticker": "1173871",
+      "name": "תיגי",
+      "qty": 0,
+      "price": 508.9,
+      "date": "2026-03-26",
+      "fee": 0
+    },
+    {
+      "id": "price-5rgnpop",
       "type": "PRICE",
       "ticker": "5135470",
       "name": "MTF מחקה ()4A אינדקס תעשיה ישר",
@@ -11193,12 +11363,12 @@
       "fee": 0
     },
     {
-      "id": "price-3494tzt",
+      "id": "price-yvyozs3",
       "type": "PRICE",
-      "ticker": "ONDS",
-      "name": "ONDAS HOLDINGS INC",
+      "ticker": "1168723",
+      "name": "MTF סל אינדקס אנרגיה מתחדשת",
       "qty": 0,
-      "price": 3210.54,
+      "price": 1960,
       "date": "2026-03-26",
       "fee": 0
     }

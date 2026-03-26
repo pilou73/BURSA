@@ -316,7 +316,7 @@
       <table id="posTable">
         <thead>
           <tr>
-            <th>שם</th><th>קוד</th><th>כמות</th><th>מחיר ממוצע</th><th>שער אחרון</th><th>שווי (₪)</th><th>רווח/הפסד (₪)</th><th>פעולות</th>
+            <th>שם</th><th>קוד</th><th>כמות</th><th>מחיר קנייה ממוצע (אג')</th><th>שער אחרון (אג')</th><th>שווי (₪)</th><th>רווח/הפסד (₪)</th><th>תשואה %</th><th>פעולות</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -345,12 +345,11 @@
   </div>
 
   <div class="section">
-    <h3>גיבוי וייצוא</h3>
+    <h3>גיבוי</h3>
     <div class="flex">
       <button onclick="exportJson()">ייצוא JSON</button>
       <input type="file" id="importFile" />
       <button onclick="importJson()">ייבוא JSON</button>
-      <button onclick="exportExcel()" style="background:#0f9d58;">📊 ייצוא לאקסל</button>
     </div>
   </div>
 
@@ -416,19 +415,22 @@ function renderPositions() {
     const tr = document.createElement('tr');
     tr.className = 'clickable';
     tr.onclick = () => { selectedTicker = p.ticker; renderChart(); };
-    const plAgora = (p.last != null && p.avg != null) ? (p.last - p.avg) * p.qty : 0;
-    // In this UI prices often stored in אגורות -> convert to ₪ for display where appropriate
+    // prices stored in אגורות; display avg & last in אגורות, value & P&L in ₪
     const valueNis = p.last != null ? (p.last * p.qty) / 100 : null;
-    const plNis = (p.last != null && p.avg != null) ? ((p.last/100) - (p.avg/100)) * p.qty : 0;
+    const plNis = (p.last != null && p.avg != null) ? ((p.last - p.avg) * p.qty) / 100 : 0;
+    const retPct = (p.last != null && p.avg > 0) ? ((p.last - p.avg) / p.avg) * 100 : null;
     const plClass = plNis > 0 ? 'pos' : (plNis < 0 ? 'neg' : '');
+    const retClass = retPct != null ? (retPct > 0 ? 'pos' : (retPct < 0 ? 'neg' : '')) : '';
+    const retStr = retPct != null ? (retPct >= 0 ? '+' : '') + retPct.toFixed(2) + '%' : '';
     tr.innerHTML = `
       <td>${p.name || ''}</td>
       <td>${p.ticker}</td>
       <td>${Number(p.qty).toFixed(2)}</td>
-      <td>${p.avg ? ( (p.avg/100).toFixed(2) ) : ''}</td>
-      <td>${p.last != null ? (p.last/100).toFixed(2) : ''}</td>
+      <td>${p.avg ? p.avg.toFixed(2) : ''}</td>
+      <td>${p.last != null ? p.last.toFixed(2) : ''}</td>
       <td>${valueNis != null ? valueNis.toFixed(2) : ''}</td>
       <td><span class="${plClass}">${plNis ? plNis.toFixed(2) : ''}</span></td>
+      <td><span class="${retClass}">${retStr}</span></td>
       <td><button onclick="deletePosition('${p.ticker}'); event.stopPropagation();">מחק</button></td>
     `;
     tb.appendChild(tr);
@@ -863,60 +865,6 @@ function importJson() {
     } catch(err) { alert('JSON לא תקין'); }
   };
   reader.readAsText(f);
-}
-
-// ייצוא לאקסל (CSV בקידוד UTF-8 BOM שנפתח נכון באקסל)
-function exportExcel() {
-  const positions = computePositions();
-  if (positions.length === 0) { alert('אין אחזקות לייצוא'); return; }
-
-  // לכל ticker נחשב תאריך קנייה נכון לפי הלוגיקה:
-  // מחזור אחזקה נוכחי = מהפעם האחרונה שהכמות עברה מ-0 ל->0+
-  function getBuyDate(ticker) {
-    const txs = data.tx
-      .filter(t => t.ticker === ticker && (t.type === 'BUY' || t.type === 'SELL'))
-      .sort((a,b) => a.date.localeCompare(b.date));
-
-    let qty = 0;
-    let cycleStart = null;
-    for (const tx of txs) {
-      const prevQty = qty;
-      if (tx.type === 'BUY') qty += Number(tx.qty);
-      if (tx.type === 'SELL') qty -= Number(tx.qty);
-      // כניסה חדשה למחזור: מ-0 לחיובי
-      if (prevQty <= 0 && qty > 0) cycleStart = tx.date;
-    }
-    return cycleStart;
-  }
-
-  const rows = positions.map(p => {
-    const buyDate = getBuyDate(p.ticker);
-    const avgNis = p.avg ? (p.avg / 100).toFixed(4) : '';
-    const lastNis = p.last != null ? (p.last / 100).toFixed(4) : '';
-    return [
-      p.name || '',
-      p.ticker,
-      buyDate ? fmtDate(buyDate) : '',
-      Number(p.qty).toFixed(2),
-      avgNis,
-      lastNis
-    ];
-  });
-
-  const header = ['שם מניה', 'קוד TASE', 'תאריך קנייה', 'כמות מניות', 'מחיר קנייה ממוצע (₪)', 'מחיר אקטואלי (₪)'];
-  const csvLines = [header, ...rows].map(row =>
-    row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
-  );
-  // BOM לקידוד עברית נכון באקסל
-  const bom = '\uFEFF';
-  const csv = bom + csvLines.join('\r\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'portfolio_holdings.csv';
-  a.click();
-  URL.revokeObjectURL(url);
 }
 
 // default dates
