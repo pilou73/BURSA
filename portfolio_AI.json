@@ -1019,6 +1019,86 @@
       "price": 2479,
       "date": "2026-04-10",
       "fee": 0
+    },
+    {
+      "id": "price-yj6gbi2",
+      "type": "PRICE",
+      "ticker": "5117684",
+      "name": "איילון אקסטרים ת\"א 125 פי 3",
+      "qty": 0,
+      "price": 1173.21,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-akoy03b",
+      "type": "PRICE",
+      "ticker": "662577",
+      "name": "פועלים",
+      "qty": 0,
+      "price": 8289,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-una8gl8",
+      "type": "PRICE",
+      "ticker": "1146356",
+      "name": "קסם 4A) ETF) ת\"א 125",
+      "qty": 0,
+      "price": 44430,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-bjjd95g",
+      "type": "PRICE",
+      "ticker": "1146885",
+      "name": "קסם 4A) ETF) ת\"א נפט וגז",
+      "qty": 0,
+      "price": 32810,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-s3le1dy",
+      "type": "PRICE",
+      "ticker": "1146554",
+      "name": "קסם 4A) ETF) ת\"א פיננסים",
+      "qty": 0,
+      "price": 101160,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-n81eq4i",
+      "type": "PRICE",
+      "ticker": "1146125",
+      "name": "קסם 4A) ETF) ת\"א-ביטוח",
+      "qty": 0,
+      "price": 148760,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-c7jsmfp",
+      "type": "PRICE",
+      "ticker": "5135470",
+      "name": "MTF מחקה אינדקס תעשיה ישראל",
+      "qty": 0,
+      "price": 222.72,
+      "date": "2026-05-06",
+      "fee": 0
+    },
+    {
+      "id": "price-5ujnnld",
+      "type": "PRICE",
+      "ticker": "1169408",
+      "name": "MTF סל ת\"א-טכנולוגיה",
+      "qty": 0,
+      "price": 2655,
+      "date": "2026-05-06",
+      "fee": 0
     }
   ]
 }
