@@ -16500,7 +16500,7 @@
       "qty": 42,
       "price": 2540,
       "date": "2026-05-26",
-      "fee": 0.91
+      "fee": 0
     },
     {
       "id": "sell-r52irxe",
@@ -16510,7 +16510,7 @@
       "qty": 50,
       "price": 1440,
       "date": "2026-05-27",
-      "fee": -82.28
+      "fee": 0
     },
     {
       "id": "sell-5ua9vbw",
@@ -16520,7 +16520,7 @@
       "qty": 20,
       "price": 3649.25,
       "date": "2026-05-27",
-      "fee": -64.3
+      "fee": 0
     },
     {
       "id": "sell-l1peecc",
@@ -16530,7 +16530,7 @@
       "qty": 30,
       "price": 6134.66,
       "date": "2026-05-27",
-      "fee": 109.74
+      "fee": 0
     },
     {
       "id": "sell-zdm9et7",
@@ -16540,7 +16540,7 @@
       "qty": 15,
       "price": 18081.33,
       "date": "2026-05-27",
-      "fee": 213.53
+      "fee": 0
     },
     {
       "id": "price-vln622h",
@@ -16630,66 +16630,6 @@
       "qty": 0,
       "price": 250.6,
       "date": "2026-05-27",
-      "fee": 0
-    },
-    {
-      "id": "price-wq9kduy",
-      "type": "PRICE",
-      "ticker": "OKLL",
-      "name": "DEFIANCE DAILY TARGET 2X LONG",
-      "qty": 0,
-      "price": 2575.875,
-      "date": "2026-05-28",
-      "fee": 0
-    },
-    {
-      "id": "price-h6vu0gu",
-      "type": "PRICE",
-      "ticker": "DGXX",
-      "name": "DIGI POWER X INC",
-      "qty": 0,
-      "price": 2274.84,
-      "date": "2026-05-28",
-      "fee": 0
-    },
-    {
-      "id": "price-aorcutr",
-      "type": "PRICE",
-      "ticker": "ONDS",
-      "name": "ONDAS HOLDINGS INC",
-      "qty": 0,
-      "price": 3067.2,
-      "date": "2026-05-28",
-      "fee": 0
-    },
-    {
-      "id": "price-r72wjcy",
-      "type": "PRICE",
-      "ticker": "XNDU",
-      "name": "XANADU QUANTUM TECHNOLOGIES LT",
-      "qty": 0,
-      "price": 4884.8,
-      "date": "2026-05-28",
-      "fee": 0
-    },
-    {
-      "id": "price-rlslpe5",
-      "type": "PRICE",
-      "ticker": "5135173",
-      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
-      "qty": 0,
-      "price": 488.32,
-      "date": "2026-05-28",
-      "fee": 0
-    },
-    {
-      "id": "buy-qdxa75p",
-      "type": "BUY",
-      "ticker": "1170703",
-      "name": "תכלית סל י PHLX Semiconductor Sector",
-      "qty": 15,
-      "price": 12230,
-      "date": "2026-05-28",
       "fee": 0
     }
   ]
