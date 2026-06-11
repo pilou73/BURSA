@@ -16850,7 +16850,7 @@
       "qty": 50,
       "price": 1630,
       "date": "2026-06-01",
-      "fee": 0
+      "fee": 0.69
     },
     {
       "id": "sell-qdym2xv",
@@ -16860,7 +16860,7 @@
       "qty": 20,
       "price": 245.9,
       "date": "2026-06-01",
-      "fee": 0
+      "fee": -27
     },
     {
       "id": "price-rrum4f1",
@@ -17010,7 +17010,7 @@
       "qty": 130,
       "price": 2447,
       "date": "2026-06-02",
-      "fee": 0
+      "fee": 135.43
     },
     {
       "id": "sell-dvo4msf",
@@ -17020,7 +17020,7 @@
       "qty": 15,
       "price": 20691.46,
       "date": "2026-06-02",
-      "fee": 0
+      "fee": 66.79
     },
     {
       "id": "buy-wapsqrw",
@@ -17030,7 +17030,7 @@
       "qty": 30,
       "price": 20874.33,
       "date": "2026-06-02",
-      "fee": 0
+      "fee": 28.25
     },
     {
       "id": "price-z8k4tne",
@@ -17108,7 +17108,7 @@
       "ticker": "1168723",
       "name": "MTF סל אינדקס אנרגיה מתחדשת",
       "qty": 0,
-      "price": 2485,
+      "price": 2486,
       "date": "2026-06-02",
       "fee": 0
     },
@@ -17118,7 +17118,7 @@
       "ticker": "OKLL",
       "name": "DEFIANCE DAILY TARGET 2X LONG",
       "qty": 0,
-      "price": 2624.425,
+      "price": 2971.9,
       "date": "2026-06-02",
       "fee": 0
     },
@@ -17128,7 +17128,7 @@
       "ticker": "DGXX",
       "name": "DIGI POWER X INC",
       "qty": 0,
-      "price": 2319.32,
+      "price": 2220.46,
       "date": "2026-06-02",
       "fee": 0
     },
@@ -17138,7 +17138,7 @@
       "ticker": "ONDS",
       "name": "ONDAS HOLDINGS INC",
       "qty": 0,
-      "price": 3743.11,
+      "price": 3836.34,
       "date": "2026-06-02",
       "fee": 0
     },
@@ -17148,7 +17148,7 @@
       "ticker": "SOXL LN",
       "name": "LEVERAGE SHARES 4X LONG SEMICO",
       "qty": 0,
-      "price": 21679.05,
+      "price": 22503.94,
       "date": "2026-06-02",
       "fee": 0
     },
@@ -17158,8 +17158,878 @@
       "ticker": "XNDU",
       "name": "XANADU QUANTUM TECHNOLOGIES LT",
       "qty": 0,
-      "price": 4793.46,
+      "price": 4782.73,
       "date": "2026-06-02",
+      "fee": 0
+    },
+    {
+      "id": "price-k0oae81",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 433.16,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "sell-kz4avk1",
+      "type": "SELL",
+      "ticker": "1168723",
+      "name": "MTF סל אינדקס אנרגיה מתחדשת",
+      "qty": 20,
+      "price": 2440,
+      "date": "2026-06-03",
+      "fee": -4.8
+    },
+    {
+      "id": "price-exbup9x",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1165,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-zxo5kt3",
+      "type": "PRICE",
+      "ticker": "1215771",
+      "name": "אי.בי.אי. סל ת\"א-ביטוח",
+      "qty": 0,
+      "price": 14380,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-k676plr",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 239200,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-fdjipd5",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4140,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-t36dvmq",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1458,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-272qbqq",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 29570,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-ok7x6fc",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 5618,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-3vnmm96",
+      "type": "PRICE",
+      "ticker": "OKLL",
+      "name": "DEFIANCE DAILY TARGET 2X LONG",
+      "qty": 0,
+      "price": 2346.42,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-iar3qfk",
+      "type": "PRICE",
+      "ticker": "DGXX",
+      "name": "DIGI POWER X INC",
+      "qty": 0,
+      "price": 2188.46,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-wwhcovu",
+      "type": "PRICE",
+      "ticker": "SOXL LN",
+      "name": "LEVERAGE SHARES 4X LONG SEMICO",
+      "qty": 0,
+      "price": 25167.34,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-4bxrohu",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 3334.4,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-vpnnpbv",
+      "type": "PRICE",
+      "ticker": "XNDU",
+      "name": "XANADU QUANTUM TECHNOLOGIES LT",
+      "qty": 0,
+      "price": 4250.53,
+      "date": "2026-06-03",
+      "fee": 0
+    },
+    {
+      "id": "price-k0ftgit",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1143,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-tnouk5i",
+      "type": "PRICE",
+      "ticker": "1215771",
+      "name": "אי.בי.אי. סל ת\"א-ביטוח",
+      "qty": 0,
+      "price": 14490,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-np2l92j",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 238490,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-j7mbp1y",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 418.28,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-2gexvj1",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4109,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-9oxklii",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1454,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-9j99fp4",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 28530,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-dhqxk0o",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 5642,
+      "date": "2026-06-04",
+      "fee": 0
+    },
+    {
+      "id": "price-wcvshhi",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1122,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-xfshgy6",
+      "type": "PRICE",
+      "ticker": "1215771",
+      "name": "אי.בי.אי. סל ת\"א-ביטוח",
+      "qty": 0,
+      "price": 14610,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-ulfym9o",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 242720,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-qi0lvju",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 414.21,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-j07o0fg",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4137,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-r8hof11",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1480,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-7ny0k58",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 28200,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-y9vrouh",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 5491,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-wjq1b3f",
+      "type": "PRICE",
+      "ticker": "OKLL",
+      "name": "DEFIANCE DAILY TARGET 2X LONG",
+      "qty": 0,
+      "price": 1849.5,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-jim15pc",
+      "type": "PRICE",
+      "ticker": "DGXX",
+      "name": "DIGI POWER X INC",
+      "qty": 0,
+      "price": 1756.44,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-nmn67ef",
+      "type": "PRICE",
+      "ticker": "SOXL LN",
+      "name": "LEVERAGE SHARES 4X LONG SEMICO",
+      "qty": 0,
+      "price": 17721.34,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-llwyrlt",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 3033.05,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-njxevs4",
+      "type": "PRICE",
+      "ticker": "XNDU",
+      "name": "XANADU QUANTUM TECHNOLOGIES LT",
+      "qty": 0,
+      "price": 3751.33,
+      "date": "2026-06-05",
+      "fee": 0
+    },
+    {
+      "id": "price-rg1ln2m",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1140,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-vlcta3f",
+      "type": "PRICE",
+      "ticker": "1215771",
+      "name": "אי.בי.אי. סל ת\"א-ביטוח",
+      "qty": 0,
+      "price": 14870,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-rxuksoo",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 247300,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-c74h2wu",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4142,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-1vqwl4x",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1448,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-ow1p5k6",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 28110,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-4dko0xz",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 5477,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-684e5np",
+      "type": "PRICE",
+      "ticker": "OKLL",
+      "name": "DEFIANCE DAILY TARGET 2X LONG",
+      "qty": 0,
+      "price": 1918.825,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-c5it6rr",
+      "type": "PRICE",
+      "ticker": "DGXX",
+      "name": "DIGI POWER X INC",
+      "qty": 0,
+      "price": 1871.74,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-yu11ezp",
+      "type": "PRICE",
+      "ticker": "SOXL LN",
+      "name": "LEVERAGE SHARES 4X LONG SEMICO",
+      "qty": 0,
+      "price": 17658,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-2ydksie",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 3031.28,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-5x56ror",
+      "type": "PRICE",
+      "ticker": "XNDU",
+      "name": "XANADU QUANTUM TECHNOLOGIES LT",
+      "qty": 0,
+      "price": 3846.53,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "price-vzmc3j0",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 423.24,
+      "date": "2026-06-08",
+      "fee": 0
+    },
+    {
+      "id": "sell-xdbu4j2",
+      "type": "SELL",
+      "ticker": "1215771",
+      "name": "אי.בי.אי. סל ת\"א-ביטוח",
+      "qty": 6,
+      "price": 15100,
+      "date": "2026-06-08",
+      "fee": 3.43
+    },
+    {
+      "id": "buy-5pjjw6x",
+      "type": "BUY",
+      "ticker": "QBTX",
+      "name": "TRADR 2X LONG QBTS DAILY ETF",
+      "qty": 15,
+      "price": 5363,
+      "date": "2026-06-09",
+      "fee": 29.38
+    },
+    {
+      "id": "price-ns0m77k",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1129,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-bijdpa2",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 245800,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-yp9g2z6",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4113,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-psyk1t4",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1430,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-447sh2s",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 29030,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-zym2swb",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 5621,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-6qhvog9",
+      "type": "PRICE",
+      "ticker": "DGXX",
+      "name": "DIGI POWER X INC",
+      "qty": 0,
+      "price": 1733.42,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-2k245z8",
+      "type": "PRICE",
+      "ticker": "OKLL",
+      "name": "DEFIANCE DAILY TARGET 2X LONG",
+      "qty": 0,
+      "price": 1759.85,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-45d3i27",
+      "type": "PRICE",
+      "ticker": "SOXL LN",
+      "name": "LEVERAGE SHARES 4X LONG SEMICO",
+      "qty": 0,
+      "price": 14308.05,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-8ymbjjb",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 2835.17,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-p5k5rpn",
+      "type": "PRICE",
+      "ticker": "QBTX",
+      "name": "TRADR 2X LONG QBTS DAILY ETF",
+      "qty": 0,
+      "price": 4459.86,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-71ep5zk",
+      "type": "PRICE",
+      "ticker": "XNDU",
+      "name": "XANADU QUANTUM TECHNOLOGIES LT",
+      "qty": 0,
+      "price": 3525.6,
+      "date": "2026-06-09",
+      "fee": 0
+    },
+    {
+      "id": "price-yawjpuk",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1087,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-dmlvpyu",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 245260,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-qdyocj9",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4049,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-z3mtbj3",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1323,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-7m4zicr",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 27970,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-b3rv59y",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 4884,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-dh0165v",
+      "type": "PRICE",
+      "ticker": "OKLL",
+      "name": "DEFIANCE DAILY TARGET 2X LONG",
+      "qty": 0,
+      "price": 1626.225,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-us7lx5i",
+      "type": "PRICE",
+      "ticker": "DGXX",
+      "name": "DIGI POWER X INC",
+      "qty": 0,
+      "price": 1780.82,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-7cap8kd",
+      "type": "PRICE",
+      "ticker": "SOXL LN",
+      "name": "LEVERAGE SHARES 4X LONG SEMICO",
+      "qty": 0,
+      "price": 14475.54,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-n91op04",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 2767.85,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-gejf7ll",
+      "type": "PRICE",
+      "ticker": "QBTX",
+      "name": "TRADR 2X LONG QBTS DAILY ETF",
+      "qty": 0,
+      "price": 4513,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-i9v7iat",
+      "type": "PRICE",
+      "ticker": "XNDU",
+      "name": "XANADU QUANTUM TECHNOLOGIES LT",
+      "qty": 0,
+      "price": 3496.266,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-taydi2n",
+      "type": "PRICE",
+      "ticker": "5135173",
+      "name": "ברק (60) אולטרה ת\"א 35 פי 3",
+      "qty": 0,
+      "price": 394.23,
+      "date": "2026-06-10",
+      "fee": 0
+    },
+    {
+      "id": "price-i1qf54k",
+      "type": "PRICE",
+      "ticker": "1083419",
+      "name": "אוטונומוס",
+      "qty": 0,
+      "price": 1086,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-z5ve0hr",
+      "type": "PRICE",
+      "ticker": "1081124",
+      "name": "אלביט מערכות",
+      "qty": 0,
+      "price": 261100,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-l1k8q7z",
+      "type": "PRICE",
+      "ticker": "1148899",
+      "name": "הראל סל ת\"א 125",
+      "qty": 0,
+      "price": 4121,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-dh6nnst",
+      "type": "PRICE",
+      "ticker": "1166974",
+      "name": "משק אנרגיה",
+      "qty": 0,
+      "price": 1378,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-wcl24uv",
+      "type": "PRICE",
+      "ticker": "1176593",
+      "name": "נקסט ויז'ן'",
+      "qty": 0,
+      "price": 28660,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-bp9sq7u",
+      "type": "PRICE",
+      "ticker": "1174457",
+      "name": "פריים אנרג'י",
+      "qty": 0,
+      "price": 5050,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-kwx3qw6",
+      "type": "PRICE",
+      "ticker": "OKLL",
+      "name": "DEFIANCE DAILY TARGET 2X LONG",
+      "qty": 0,
+      "price": 1687.075,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-n6rtxtg",
+      "type": "PRICE",
+      "ticker": "DGXX",
+      "name": "DIGI POWER X INC",
+      "qty": 0,
+      "price": 1808.64,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-o1wht0s",
+      "type": "PRICE",
+      "ticker": "SOXL LN",
+      "name": "LEVERAGE SHARES 4X LONG SEMICO",
+      "qty": 0,
+      "price": 16156.28,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-9h1c22c",
+      "type": "PRICE",
+      "ticker": "ONDS",
+      "name": "ONDAS HOLDINGS INC",
+      "qty": 0,
+      "price": 2796,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-0u45jcq",
+      "type": "PRICE",
+      "ticker": "QBTX",
+      "name": "TRADR 2X LONG QBTS DAILY ETF",
+      "qty": 0,
+      "price": 4542.4,
+      "date": "2026-06-11",
+      "fee": 0
+    },
+    {
+      "id": "price-wv8gli1",
+      "type": "PRICE",
+      "ticker": "XNDU",
+      "name": "XANADU QUANTUM TECHNOLOGIES LT",
+      "qty": 0,
+      "price": 3493,
+      "date": "2026-06-11",
       "fee": 0
     }
   ]
